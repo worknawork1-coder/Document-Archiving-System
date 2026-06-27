@@ -4,12 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>نظام أرشفة المستندات الرسمية 4K - شامل جميع الماسحات</title>
+    <title>نظام أرشفة المستندات الرسمية 4K</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap"
         rel="stylesheet">
-    <!-- مكتبات إضافية للماسحات -->
-    <script src="https://cdn.jsdelivr.net/npm/scan@1.0.1/dist/scan.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -30,10 +28,11 @@
             --text-dark: #1a1a2e;
             --border-light: rgba(26, 82, 118, 0.15);
             --footer-bg: linear-gradient(135deg, #1a5276, #1a3a5a);
-            --golden: #D4A800;
-            --golden-dark: #B8960A;
-            --side-line-color: rgba(212, 168, 0, 0.7);
-            --side-line-thick: 5px;
+            /* ألوان جديدة */
+            --lime: #32CD32;
+            --lime-light: rgba(50, 205, 50, 0.15);
+            --golden-dark: #B8860B;
+            --golden-dark-border: #DAA520;
         }
 
         html,
@@ -700,6 +699,7 @@
             border-collapse: collapse;
             font-size: clamp(11px, 0.8vw, 13px);
             min-width: 650px;
+            border-spacing: 0;
         }
 
         thead {
@@ -718,6 +718,7 @@
             cursor: pointer;
             user-select: none;
             transition: var(--transition);
+            border-bottom: 3px solid var(--golden-dark);
         }
 
         thead th:hover {
@@ -730,48 +731,57 @@
             opacity: 0.7;
         }
 
+        /* ===== فواصل بين السجلات بلون Lime ===== */
         tbody tr {
             transition: var(--transition);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
             position: relative;
-            border-right: var(--side-line-thick) solid var(--side-line-color);
+            border-bottom: 3px solid var(--lime) !important;
+            border-right: 4px solid var(--golden-dark) !important;
         }
 
+        /* خلفيات متناوبة */
         tbody tr:nth-child(even) {
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.6);
         }
 
         tbody tr:nth-child(odd) {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.3);
         }
 
         tbody tr:hover {
             background: rgba(41, 128, 185, 0.08);
         }
 
+        /* ===== السجل المحدد (أخضر مع حواف) ===== */
         tbody tr.selected {
-            background: rgba(46, 204, 113, 0.3) !important;
-            border-right: var(--side-line-thick) solid var(--golden) !important;
-            box-shadow: inset 0 0 30px rgba(46, 204, 113, 0.15);
+            background: rgba(46, 204, 113, 0.25) !important;
+            border-right: 4px solid var(--golden-dark-border) !important;
+            border-bottom: 3px solid var(--lime) !important;
+            box-shadow: inset 0 0 30px rgba(46, 204, 113, 0.1);
         }
 
+        /* ===== نتائج البحث - الأولى (برتقالي) ===== */
         tbody tr.search-primary {
-            background: rgba(255, 140, 0, 0.3) !important;
-            border-right: var(--side-line-thick) solid #FF8C00 !important;
+            background: rgba(255, 140, 0, 0.25) !important;
+            border-right: 4px solid #FF8C00 !important;
+            border-bottom: 3px solid var(--lime) !important;
             box-shadow: inset 0 0 25px rgba(255, 140, 0, 0.1);
         }
 
+        /* ===== نتائج البحث - الثانوية (بنفسجي) ===== */
         tbody tr.search-secondary {
             background: rgba(155, 89, 182, 0.2) !important;
-            border-right: var(--side-line-thick) solid #9B59B6 !important;
+            border-right: 4px solid #9B59B6 !important;
+            border-bottom: 3px solid var(--lime) !important;
             box-shadow: inset 0 0 25px rgba(155, 89, 182, 0.1);
         }
 
         tbody td {
-            padding: 8px 10px;
+            padding: 10px 10px;
             text-align: center;
             vertical-align: middle;
             color: var(--text-dark);
+            border-bottom: 1px solid rgba(50, 205, 50, 0.15);
         }
 
         tbody td,
@@ -1247,6 +1257,52 @@
             color: #7f8c8d;
         }
 
+        .scanner-status-bar {
+            background: #f8f9fa;
+            padding: 8px 16px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #e9ecef;
+            font-size: 13px;
+            color: #2c3e50;
+        }
+
+        .scanner-status-bar .status-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-left: 6px;
+        }
+
+        .scanner-status-bar .status-dot.connected {
+            background: #27ae60;
+        }
+
+        .scanner-status-bar .status-dot.disconnected {
+            background: #e74c3c;
+        }
+
+        .scanner-status-bar .status-dot.searching {
+            background: #f39c12;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -1426,58 +1482,11 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--primary);
         }
-
-        /* تذييل إضافي للماسح */
-        .scanner-status-bar {
-            background: #f8f9fa;
-            padding: 8px 16px;
-            border-radius: 8px;
-            margin-top: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid #e9ecef;
-            font-size: 13px;
-            color: #2c3e50;
-        }
-
-        .scanner-status-bar .status-dot {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            margin-left: 6px;
-        }
-
-        .scanner-status-bar .status-dot.connected {
-            background: #27ae60;
-        }
-
-        .scanner-status-bar .status-dot.disconnected {
-            background: #e74c3c;
-        }
-
-        .scanner-status-bar .status-dot.searching {
-            background: #f39c12;
-            animation: pulse 1s infinite;
-        }
-
-        @keyframes pulse {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.3;
-            }
-        }
     </style>
 </head>
 
 <body>
-
+    <!-- المحتوى الكامل للبرنامج (نفسه) -->
     <div class="app-container" id="app">
         <header class="header">
             <div
@@ -1608,7 +1617,7 @@
                 <input type="text" id="quickSearch" placeholder="بحث سريع..." onkeyup="quickSearch()">
                 <button onclick="quickSearch()"><i class="fas fa-arrow-right"></i></button>
             </div>
-            <span class="version"><i class="fas fa-code-branch"></i> الإصدار 10.0 | 4K</span>
+            <span class="version"><i class="fas fa-code-branch"></i> الإصدار 10.1 | 4K</span>
         </div>
 
         <footer class="footer">
@@ -1626,7 +1635,8 @@
         </footer>
     </div>
 
-    <!-- ===== نافذة البحث المتقدم ===== -->
+    <!-- ===== باقي النوافذ المنبثقة (نفسها) ===== -->
+    <!-- نافذة البحث المتقدم -->
     <div class="modal-overlay" id="searchModal">
         <div class="modal-content" id="searchModalContent">
             <div class="modal-header-draggable" id="searchModalHeader">
@@ -1675,7 +1685,7 @@
         </div>
     </div>
 
-    <!-- ===== نافذة عرض المستند ===== -->
+    <!-- نافذة عرض المستند -->
     <div class="modal-overlay view-modal" id="viewModal">
         <div class="modal-content">
             <h2><i class="fas fa-eye"></i> عرض المستند</h2>
@@ -1700,12 +1710,10 @@
         </div>
     </div>
 
-    <!-- ===== نافذة الماسح الضوئي الشاملة ===== -->
+    <!-- نافذة الماسح الضوئي -->
     <div class="modal-overlay" id="scanModal">
         <div class="modal-content">
             <h2><i class="fas fa-camera"></i> الماسح الضوئي الشامل</h2>
-
-            <!-- حالة الماسح -->
             <div class="scanner-status-bar" id="scannerStatusBar">
                 <span>
                     <span class="status-dot searching" id="statusDot"></span>
@@ -1717,8 +1725,6 @@
                     <i class="fas fa-bluetooth-b"></i> Bluetooth
                 </span>
             </div>
-
-            <!-- الأجهزة المكتشفة -->
             <div class="form-group">
                 <label><i class="fas fa-print"></i> الأجهزة المكتشفة <span id="deviceCount"
                         style="color:#7f8c8d;font-size:13px;">(0)</span></label>
@@ -1727,8 +1733,6 @@
                     <i class="fas fa-spinner fa-spin"></i> جاري البحث عن أجهزة الماسح الضوئي...
                 </div>
             </div>
-
-            <!-- خيارات المسح -->
             <div class="scanner-options">
                 <div class="form-group">
                     <label><i class="fas fa-file"></i> صيغة الملف</label>
@@ -1769,8 +1773,6 @@
                     </select>
                 </div>
             </div>
-
-            <!-- خيارات متقدمة -->
             <div class="scanner-advanced">
                 <div class="form-group">
                     <label><i class="fas fa-crop-alt"></i> حجم الورق</label>
@@ -1804,7 +1806,6 @@
                     </select>
                 </div>
             </div>
-
             <div class="form-group">
                 <label><i class="fas fa-folder"></i> مجلد الحفظ</label>
                 <input type="text" id="scanFolder" value="C:\Users\Public\Scans" placeholder="مسار المجلد...">
@@ -1813,7 +1814,6 @@
                 <label><i class="fas fa-file-signature"></i> اسم الملف</label>
                 <input type="text" id="scanFileName" placeholder="اسم الملف..." value="scan_">
             </div>
-
             <div class="modal-actions">
                 <button class="colored-btn btn-green" onclick="startScan()"><i class="fas fa-camera"></i> بدء المسح
                     (Scan)</button>
@@ -1825,7 +1825,7 @@
         </div>
     </div>
 
-    <!-- ===== نافذة سلة المحذوفات ===== -->
+    <!-- نافذة سلة المحذوفات -->
     <div class="modal-overlay trash-modal" id="trashModal">
         <div class="modal-content">
             <h2><i class="fas fa-trash-alt"></i> سلة المحذوفات</h2>
@@ -1857,7 +1857,7 @@
         </div>
     </div>
 
-    <!-- ===== نافذة الخروج ===== -->
+    <!-- نافذة الخروج -->
     <div class="exit-overlay" id="exitOverlay">
         <div class="exit-box">
             <i class="fas fa-check-circle"></i>
@@ -1868,7 +1868,7 @@
 
     <script>
         // ============================================================
-        // التطبيق الكامل - الإصدار 10.0 (دعم جميع الماسحات)
+        // التطبيق الكامل - الإصدار 10.1 (فواصل Lime + حواف ذهبية غامقة)
         // ============================================================
 
         let documents = [];
@@ -1885,6 +1885,7 @@
         let uploadedFiles = {};
         let autoBackupInterval = null;
         let scanInterval = null;
+        let selectedScanner = null;
 
         document.getElementById('docDate').value = new Date().toISOString().split('T')[0];
 
@@ -2102,13 +2103,13 @@
                 const searchBadge = isSearchResult ? ' 🔍' : '';
 
                 tr.innerHTML = `
-            <td>${index + 1}</td>
-            <td style="font-weight:500;">${doc.name || ''}${searchBadge}</td>
-            <td>${doc.type || ''}</td>
-            <td>${doc.date || ''}</td>
-            <td>${doc.number || ''}</td>
-            <td>${icon ? `<span class="attachment-icon" onclick="event.stopPropagation(); viewDocumentById(${doc.id})" title="عرض المستند">${icon}</span>` : ''}</td>
-        `;
+                    <td>${index + 1}</td>
+                    <td style="font-weight:500;">${doc.name || ''}${searchBadge}</td>
+                    <td>${doc.type || ''}</td>
+                    <td>${doc.date || ''}</td>
+                    <td>${doc.number || ''}</td>
+                    <td>${icon ? `<span class="attachment-icon" onclick="event.stopPropagation(); viewDocumentById(${doc.id})" title="عرض المستند">${icon}</span>` : ''}</td>
+                `;
                 tbody.appendChild(tr);
             });
 
@@ -2232,14 +2233,14 @@
                 setTimeout(() => {
                     window.close();
                     document.body.innerHTML = `
-                <div style="display:flex;justify-content:center;align-items:center;height:100vh;font-family:Tajawal;background:linear-gradient(135deg,#d4e6f1,#85c1e9);">
-                    <div style="text-align:center;background:white;padding:40px 50px;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.1);">
-                        <i class="fas fa-check-circle" style="color:#27ae60;font-size:60px;display:block;margin-bottom:16px;"></i>
-                        <h2 style="color:#1a1a2e;font-size:24px;">تم الخروج بنجاح</h2>
-                        <p style="color:#7f8c8d;font-size:16px;">يمكنك إغلاق هذه الصفحة الآن</p>
-                    </div>
-                </div>
-            `;
+                        <div style="display:flex;justify-content:center;align-items:center;height:100vh;font-family:Tajawal;background:linear-gradient(135deg,#d4e6f1,#85c1e9);">
+                            <div style="text-align:center;background:white;padding:40px 50px;border-radius:20px;box-shadow:0 10px 40px rgba(0,0,0,0.1);">
+                                <i class="fas fa-check-circle" style="color:#27ae60;font-size:60px;display:block;margin-bottom:16px;"></i>
+                                <h2 style="color:#1a1a2e;font-size:24px;">تم الخروج بنجاح</h2>
+                                <p style="color:#7f8c8d;font-size:16px;">يمكنك إغلاق هذه الصفحة الآن</p>
+                            </div>
+                        </div>
+                    `;
                 }, 2000);
             }
         }
@@ -2391,13 +2392,13 @@
                 const icon = doc.attachment ? getBookEmoji(doc.type) : '';
                 const searchBadge = index === 0 ? ' 🔍★' : ' 🔍';
                 tr.innerHTML = `
-            <td>${index + 1}</td>
-            <td style="font-weight:500;">${doc.name || ''}${searchBadge}</td>
-            <td>${doc.type || ''}</td>
-            <td>${doc.date || ''}</td>
-            <td>${doc.number || ''}</td>
-            <td>${icon ? `<span class="attachment-icon" onclick="event.stopPropagation(); viewDocumentById(${doc.id})" title="عرض المستند">${icon}</span>` : ''}</td>
-        `;
+                    <td>${index + 1}</td>
+                    <td style="font-weight:500;">${doc.name || ''}${searchBadge}</td>
+                    <td>${doc.type || ''}</td>
+                    <td>${doc.date || ''}</td>
+                    <td>${doc.number || ''}</td>
+                    <td>${icon ? `<span class="attachment-icon" onclick="event.stopPropagation(); viewDocumentById(${doc.id})" title="عرض المستند">${icon}</span>` : ''}</td>
+                `;
                 tr.onclick = function () { selectDocument(doc.id); };
                 tbody.appendChild(tr);
             });
@@ -2452,104 +2453,104 @@
 
             if (['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg'].includes(ext)) {
                 content = `
-            <html dir="rtl">
-            <head><title>${fileName}</title>
-            <style>
-                body { margin:0; padding:0; background:#f0f2f5; font-family:'Tajawal',sans-serif; }
-                .toolbar { background:#1a5276; color:white; padding:12px 24px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100; }
-                .toolbar .title { font-size:18px; font-weight:700; }
-                .toolbar .actions button { padding:8px 20px; border:none; border-radius:6px; font-family:'Tajawal',sans-serif; font-weight:700; cursor:pointer; margin:0 5px; }
-                .btn-print { background:#2ecc71; color:white; }
-                .btn-close { background:#e74c3c; color:white; }
-                .content { padding:20px; text-align:center; }
-                .content img { max-width:95%; max-height:85vh; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.1); }
-                @media print { .toolbar { display:none; } }
-            </style>
-            </head>
-            <body>
-                <div class="toolbar">
-                    <span class="title"><i class="fas fa-file-image" style="margin-left:10px;"></i> ${fileName}</span>
-                    <div class="actions">
-                        <button class="btn-print" onclick="window.print()"><i class="fas fa-print"></i> طباعة</button>
-                        <button class="btn-close" onclick="window.close()"><i class="fas fa-times"></i> إغلاق</button>
-                    </div>
-                </div>
-                <div class="content">
-                    <img src="${fileData}" alt="${fileName}" />
-                    <p style="color:#95a5a6;margin-top:15px;font-size:14px;">${fileName}</p>
-                </div>
-            </body>
-            </html>
-        `;
+                    <html dir="rtl">
+                    <head><title>${fileName}</title>
+                    <style>
+                        body { margin:0; padding:0; background:#f0f2f5; font-family:'Tajawal',sans-serif; }
+                        .toolbar { background:#1a5276; color:white; padding:12px 24px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100; }
+                        .toolbar .title { font-size:18px; font-weight:700; }
+                        .toolbar .actions button { padding:8px 20px; border:none; border-radius:6px; font-family:'Tajawal',sans-serif; font-weight:700; cursor:pointer; margin:0 5px; }
+                        .btn-print { background:#2ecc71; color:white; }
+                        .btn-close { background:#e74c3c; color:white; }
+                        .content { padding:20px; text-align:center; }
+                        .content img { max-width:95%; max-height:85vh; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.1); }
+                        @media print { .toolbar { display:none; } }
+                    </style>
+                    </head>
+                    <body>
+                        <div class="toolbar">
+                            <span class="title"><i class="fas fa-file-image" style="margin-left:10px;"></i> ${fileName}</span>
+                            <div class="actions">
+                                <button class="btn-print" onclick="window.print()"><i class="fas fa-print"></i> طباعة</button>
+                                <button class="btn-close" onclick="window.close()"><i class="fas fa-times"></i> إغلاق</button>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <img src="${fileData}" alt="${fileName}" />
+                            <p style="color:#95a5a6;margin-top:15px;font-size:14px;">${fileName}</p>
+                        </div>
+                    </body>
+                    </html>
+                `;
             } else if (['pdf'].includes(ext)) {
                 content = `
-            <html dir="rtl">
-            <head><title>${fileName}</title>
-            <style>
-                body { margin:0; padding:0; background:#f0f2f5; font-family:'Tajawal',sans-serif; }
-                .toolbar { background:#1a5276; color:white; padding:12px 24px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100; }
-                .toolbar .title { font-size:18px; font-weight:700; }
-                .toolbar .actions button { padding:8px 20px; border:none; border-radius:6px; font-family:'Tajawal',sans-serif; font-weight:700; cursor:pointer; margin:0 5px; }
-                .btn-print { background:#2ecc71; color:white; }
-                .btn-close { background:#e74c3c; color:white; }
-                .content { padding:20px; height:90vh; }
-                .content iframe { width:100%; height:100%; border:none; border-radius:8px; background:white; }
-                @media print { .toolbar { display:none; } .content { height:100vh; padding:0; } }
-            </style>
-            </head>
-            <body>
-                <div class="toolbar">
-                    <span class="title"><i class="fas fa-file-pdf" style="margin-left:10px;color:#e74c3c;"></i> ${fileName}</span>
-                    <div class="actions">
-                        <button class="btn-print" onclick="window.print()"><i class="fas fa-print"></i> طباعة</button>
-                        <button class="btn-close" onclick="window.close()"><i class="fas fa-times"></i> إغلاق</button>
-                    </div>
-                </div>
-                <div class="content">
-                    <iframe src="${fileData}"></iframe>
-                </div>
-            </body>
-            </html>
-        `;
+                    <html dir="rtl">
+                    <head><title>${fileName}</title>
+                    <style>
+                        body { margin:0; padding:0; background:#f0f2f5; font-family:'Tajawal',sans-serif; }
+                        .toolbar { background:#1a5276; color:white; padding:12px 24px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100; }
+                        .toolbar .title { font-size:18px; font-weight:700; }
+                        .toolbar .actions button { padding:8px 20px; border:none; border-radius:6px; font-family:'Tajawal',sans-serif; font-weight:700; cursor:pointer; margin:0 5px; }
+                        .btn-print { background:#2ecc71; color:white; }
+                        .btn-close { background:#e74c3c; color:white; }
+                        .content { padding:20px; height:90vh; }
+                        .content iframe { width:100%; height:100%; border:none; border-radius:8px; background:white; }
+                        @media print { .toolbar { display:none; } .content { height:100vh; padding:0; } }
+                    </style>
+                    </head>
+                    <body>
+                        <div class="toolbar">
+                            <span class="title"><i class="fas fa-file-pdf" style="margin-left:10px;color:#e74c3c;"></i> ${fileName}</span>
+                            <div class="actions">
+                                <button class="btn-print" onclick="window.print()"><i class="fas fa-print"></i> طباعة</button>
+                                <button class="btn-close" onclick="window.close()"><i class="fas fa-times"></i> إغلاق</button>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <iframe src="${fileData}"></iframe>
+                        </div>
+                    </body>
+                    </html>
+                `;
             } else {
                 content = `
-            <html dir="rtl">
-            <head><title>${fileName}</title>
-            <style>
-                body { margin:0; padding:0; background:#f0f2f5; font-family:'Tajawal',sans-serif; }
-                .toolbar { background:#1a5276; color:white; padding:12px 24px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100; }
-                .toolbar .title { font-size:18px; font-weight:700; }
-                .toolbar .actions button { padding:8px 20px; border:none; border-radius:6px; font-family:'Tajawal',sans-serif; font-weight:700; cursor:pointer; margin:0 5px; }
-                .btn-print { background:#2ecc71; color:white; }
-                .btn-close { background:#e74c3c; color:white; }
-                .content { padding:40px; text-align:center; }
-                .content .icon { font-size:80px; color:#2980b9; display:block; margin-bottom:20px; }
-                .content .name { font-size:24px; font-weight:700; color:#1a5276; }
-                .content .info { color:#7f8c8d; font-size:16px; margin-top:10px; }
-                @media print { .toolbar { display:none; } }
-            </style>
-            </head>
-            <body>
-                <div class="toolbar">
-                    <span class="title"><i class="fas fa-file" style="margin-left:10px;"></i> ${fileName}</span>
-                    <div class="actions">
-                        <button class="btn-print" onclick="window.print()"><i class="fas fa-print"></i> طباعة</button>
-                        <button class="btn-close" onclick="window.close()"><i class="fas fa-times"></i> إغلاق</button>
-                    </div>
-                </div>
-                <div class="content">
-                    <i class="fas ${getFileIconByExtension(fileName)} icon"></i>
-                    <div class="name">${fileName}</div>
-                    <div class="info">نوع الملف: ${ext.toUpperCase()}</div>
-                    <div style="margin-top:30px;padding:20px;background:#f8f9fa;border-radius:10px;display:inline-block;">
-                        <a href="${fileData}" download="${fileName}" style="padding:12px 30px;background:#1a5276;color:white;text-decoration:none;border-radius:8px;font-weight:700;">
-                            <i class="fas fa-download"></i> تحميل الملف
-                        </a>
-                    </div>
-                </div>
-            </body>
-            </html>
-        `;
+                    <html dir="rtl">
+                    <head><title>${fileName}</title>
+                    <style>
+                        body { margin:0; padding:0; background:#f0f2f5; font-family:'Tajawal',sans-serif; }
+                        .toolbar { background:#1a5276; color:white; padding:12px 24px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100; }
+                        .toolbar .title { font-size:18px; font-weight:700; }
+                        .toolbar .actions button { padding:8px 20px; border:none; border-radius:6px; font-family:'Tajawal',sans-serif; font-weight:700; cursor:pointer; margin:0 5px; }
+                        .btn-print { background:#2ecc71; color:white; }
+                        .btn-close { background:#e74c3c; color:white; }
+                        .content { padding:40px; text-align:center; }
+                        .content .icon { font-size:80px; color:#2980b9; display:block; margin-bottom:20px; }
+                        .content .name { font-size:24px; font-weight:700; color:#1a5276; }
+                        .content .info { color:#7f8c8d; font-size:16px; margin-top:10px; }
+                        @media print { .toolbar { display:none; } }
+                    </style>
+                    </head>
+                    <body>
+                        <div class="toolbar">
+                            <span class="title"><i class="fas fa-file" style="margin-left:10px;"></i> ${fileName}</span>
+                            <div class="actions">
+                                <button class="btn-print" onclick="window.print()"><i class="fas fa-print"></i> طباعة</button>
+                                <button class="btn-close" onclick="window.close()"><i class="fas fa-times"></i> إغلاق</button>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <i class="fas ${getFileIconByExtension(fileName)} icon"></i>
+                            <div class="name">${fileName}</div>
+                            <div class="info">نوع الملف: ${ext.toUpperCase()}</div>
+                            <div style="margin-top:30px;padding:20px;background:#f8f9fa;border-radius:10px;display:inline-block;">
+                                <a href="${fileData}" download="${fileName}" style="padding:12px 30px;background:#1a5276;color:white;text-decoration:none;border-radius:8px;font-weight:700;">
+                                    <i class="fas fa-download"></i> تحميل الملف
+                                </a>
+                            </div>
+                        </div>
+                    </body>
+                    </html>
+                `;
             }
             win.document.write(content);
             win.document.close();
@@ -2640,16 +2641,11 @@
         }
 
         // ============================================================
+        // الماسح الضوئي الشامل
         // ============================================================
-        // الماسح الضوئي الشامل - دعم جميع أنواع الماسحات
-        // ============================================================
-
-        let selectedScanner = null;
-
         function openScanModal() {
             document.getElementById('scanModal').classList.add('active');
             document.getElementById('scanFileName').value = `scan_${Date.now()}`;
-            // تحديث حالة الماسح
             updateScannerStatus('searching', 'جاري البحث عن الأجهزة...');
             detectAllScanners();
         }
@@ -2674,9 +2670,6 @@
             detectAllScanners();
         }
 
-        // ============================================================
-        // الكشف عن جميع أنواع الماسحات
-        // ============================================================
         async function detectAllScanners() {
             const listEl = document.getElementById('scannerDevicesList');
             const deviceCount = document.getElementById('deviceCount');
@@ -2684,37 +2677,26 @@
             scannerDevices = [];
 
             try {
-                // ========================================
-                // 1. البحث عن أجهزة USB (WebUSB API)
-                // ========================================
+                // 1. USB
                 if ('usb' in navigator) {
                     try {
                         const devices = await navigator.usb.getDevices();
                         for (const device of devices) {
                             const productName = device.productName || '';
-                            // قائمة الكلمات المفتاحية للتعرف على الماسحات
-                            const keywords = ['scan', 'printer', 'multifunction', 'all-in-one', 'scanner', 'mfp', 'mf',
-                                'canon', 'hp', 'epson', 'brother', 'samsung', 'fujitsu', 'lexmark', 'kodak',
-                                'ricoh', 'sharp', 'kyocera', 'xerox', 'dell', 'okidata', 'panasonic'];
+                            const keywords = ['scan', 'printer', 'scanner', 'mfp', 'mf', 'canon', 'hp', 'epson', 'brother', 'samsung', 'fujitsu', 'lexmark', 'kodak', 'ricoh', 'sharp', 'kyocera', 'xerox', 'dell', 'okidata', 'panasonic'];
                             if (keywords.some(k => productName.toLowerCase().includes(k))) {
                                 scannerDevices.push({
                                     name: productName || `جهاز USB (${device.vendorId}:${device.productId})`,
                                     id: device.serialNumber || `usb-${device.vendorId}-${device.productId}`,
                                     type: 'USB',
-                                    status: 'متصل',
-                                    vendorId: device.vendorId,
-                                    productId: device.productId
+                                    status: 'متصل'
                                 });
                             }
                         }
-                    } catch (e) {
-                        console.log('⚠️ خطأ في الوصول إلى USB:', e);
-                    }
+                    } catch (e) { console.log('⚠️ USB error:', e); }
                 }
 
-                // ========================================
-                // 2. البحث عن أجهزة Bluetooth (Web Bluetooth API)
-                // ========================================
+                // 2. Bluetooth
                 if ('bluetooth' in navigator) {
                     try {
                         const bluetoothDevices = await navigator.bluetooth.getDevices();
@@ -2726,120 +2708,92 @@
                                     name: name || 'جهاز Bluetooth',
                                     id: device.id,
                                     type: 'Bluetooth',
-                                    status: 'متصل',
-                                    device: device
-                                });
-                            }
-                        }
-                    } catch (e) {
-                        console.log('⚠️ خطأ في الوصول إلى Bluetooth:', e);
-                    }
-                }
-
-                // ========================================
-                // 3. البحث عن أجهزة الشبكة (Network Scanners)
-                // ========================================
-                try {
-                    // محاكاة البحث عن ماسحات الشبكة الشائعة
-                    const networkScanners = [
-                        { name: 'HP OfficeJet Pro 9015 (WiFi)', id: 'hp-officejet-9015', type: 'شبكة (WiFi)' },
-                        { name: 'Canon MF3010 (USB)', id: 'canon-mf3010', type: 'USB' },
-                        { name: 'Epson WorkForce Pro WF-4820 (WiFi)', id: 'epson-wf-4820', type: 'شبكة (WiFi)' },
-                        { name: 'Brother MFC-L2710DW (شبكة)', id: 'brother-mfc-2710', type: 'شبكة (WiFi)' },
-                        { name: 'Samsung SCX-3400 (USB)', id: 'samsung-scx-3400', type: 'USB' },
-                        { name: 'Fujitsu ScanSnap iX1600 (USB)', id: 'fujitsu-scansnap', type: 'USB' },
-                        { name: 'Canon imageFORMULA DR-M260 (USB)', id: 'canon-dr-m260', type: 'USB' },
-                        { name: 'Lexmark XC4140 (شبكة)', id: 'lexmark-xc4140', type: 'شبكة (Ethernet)' },
-                        { name: 'Kodak ScanMate i940 (USB)', id: 'kodak-scanmate', type: 'USB' },
-                        { name: 'Ricoh SP 330SN (شبكة)', id: 'ricoh-sp-330sn', type: 'شبكة (Ethernet)' }
-                    ];
-
-                    // إضافة الأجهزة التي لم يتم اكتشافها بالفعل
-                    const existingIds = new Set(scannerDevices.map(d => d.id));
-                    for (const ns of networkScanners) {
-                        if (!existingIds.has(ns.id)) {
-                            scannerDevices.push({
-                                name: ns.name,
-                                id: ns.id,
-                                type: ns.type,
-                                status: 'متصل'
-                            });
-                        }
-                    }
-                } catch (e) {
-                    console.log('⚠️ خطأ في البحث عن ماسحات الشبكة:', e);
-                }
-
-                // ========================================
-                // 4. البحث عن أجهزة عبر WIA (Windows)
-                // ========================================
-                if (navigator.userAgent.includes('Windows')) {
-                    try {
-                        // محاولة استخدام WIA عبر ActiveX (لمتصفح Internet Explorer القديم)
-                        // أو استخدام API خاص بـ Windows
-                        const wiaScanners = [
-                            { name: 'WIA Scanner (Windows)', id: 'wia-scanner', type: 'WIA (Windows)' }
-                        ];
-                        // إضافة WIA إذا لم يكن موجوداً
-                        const existingIds = new Set(scannerDevices.map(d => d.id));
-                        for (const ws of wiaScanners) {
-                            if (!existingIds.has(ws.id)) {
-                                scannerDevices.push({
-                                    name: ws.name,
-                                    id: ws.id,
-                                    type: ws.type,
                                     status: 'متصل'
                                 });
                             }
                         }
-                    } catch (e) {
-                        console.log('⚠️ خطأ في الوصول إلى WIA:', e);
+                    } catch (e) { console.log('⚠️ Bluetooth error:', e); }
+                }
+
+                // 3. شبكة وماسحات افتراضية
+                const networkScanners = [
+                    { name: 'HP OfficeJet Pro 9015 (WiFi)', id: 'hp-officejet-9015', type: 'شبكة (WiFi)' },
+                    { name: 'Canon MF3010 (USB)', id: 'canon-mf3010', type: 'USB' },
+                    { name: 'Epson WorkForce Pro WF-4820 (WiFi)', id: 'epson-wf-4820', type: 'شبكة (WiFi)' },
+                    { name: 'Brother MFC-L2710DW (شبكة)', id: 'brother-mfc-2710', type: 'شبكة (WiFi)' },
+                    { name: 'Samsung SCX-3400 (USB)', id: 'samsung-scx-3400', type: 'USB' },
+                    { name: 'Fujitsu ScanSnap iX1600 (USB)', id: 'fujitsu-scansnap', type: 'USB' },
+                    { name: 'Canon imageFORMULA DR-M260 (USB)', id: 'canon-dr-m260', type: 'USB' },
+                    { name: 'Lexmark XC4140 (شبكة)', id: 'lexmark-xc4140', type: 'شبكة (Ethernet)' },
+                    { name: 'Kodak ScanMate i940 (USB)', id: 'kodak-scanmate', type: 'USB' },
+                    { name: 'Ricoh SP 330SN (شبكة)', id: 'ricoh-sp-330sn', type: 'شبكة (Ethernet)' }
+                ];
+
+                const existingIds = new Set(scannerDevices.map(d => d.id));
+                for (const ns of networkScanners) {
+                    if (!existingIds.has(ns.id)) {
+                        scannerDevices.push({
+                            name: ns.name,
+                            id: ns.id,
+                            type: ns.type,
+                            status: 'متصل'
+                        });
                     }
                 }
 
-                // ========================================
-                // عرض الأجهزة المكتشفة
-                // ========================================
+                // 4. WIA (Windows)
+                if (navigator.userAgent.includes('Windows')) {
+                    const existingIds2 = new Set(scannerDevices.map(d => d.id));
+                    if (!existingIds2.has('wia-scanner')) {
+                        scannerDevices.push({
+                            name: 'WIA Scanner (Windows)',
+                            id: 'wia-scanner',
+                            type: 'WIA (Windows)',
+                            status: 'متصل'
+                        });
+                    }
+                }
+
                 if (scannerDevices.length > 0) {
                     listEl.innerHTML = scannerDevices.map((d, index) => `
-                <div class="scanner-device" onclick="selectScanner('${d.id}')" id="scanner-${d.id}">
-                    <div class="device-name">
-                        <i class="fas ${d.type === 'USB' ? 'fa-usb' : d.type.includes('WiFi') ? 'fa-wifi' : d.type === 'Bluetooth' ? 'fa-bluetooth-b' : 'fa-network-wired'}" style="color:#2980b9;"></i>
-                        ${d.name}
-                        <span class="device-type">(${d.type})</span>
-                    </div>
-                    <span class="device-status"><i class="fas fa-check-circle"></i> ${d.status}</span>
-                </div>
-            `).join('');
+                        <div class="scanner-device" onclick="selectScanner('${d.id}')" id="scanner-${d.id}">
+                            <div class="device-name">
+                                <i class="fas ${d.type === 'USB' ? 'fa-usb' : d.type.includes('WiFi') ? 'fa-wifi' : d.type === 'Bluetooth' ? 'fa-bluetooth-b' : 'fa-network-wired'}" style="color:#2980b9;"></i>
+                                ${d.name}
+                                <span class="device-type">(${d.type})</span>
+                            </div>
+                            <span class="device-status"><i class="fas fa-check-circle"></i> ${d.status}</span>
+                        </div>
+                    `).join('');
                     deviceCount.textContent = `(${scannerDevices.length})`;
                     updateScannerStatus('connected', `تم العثور على ${scannerDevices.length} جهاز ماسح ضوئي`);
                     toast(`✅ تم العثور على ${scannerDevices.length} ماسح ضوئي`, 'success');
                 } else {
                     listEl.innerHTML = `
-                <div style="text-align:center;padding:25px;">
-                    <i class="fas fa-exclamation-triangle" style="color:#f39c12;font-size:35px;display:block;margin-bottom:12px;"></i>
-                    <p style="color:#7f8c8d;font-size:16px;font-weight:600;">لم يتم العثور على أجهزة ماسح ضوئي</p>
-                    <p style="color:#95a5a6;font-size:13px;">تأكد من توصيل الجهاز وتشغيله، ثم اضغط "تحديث الأجهزة"</p>
-                    <p style="color:#bdc3c7;font-size:12px;margin-top:8px;">
-                        <i class="fas fa-usb"></i> USB | 
-                        <i class="fas fa-wifi"></i> WiFi | 
-                        <i class="fas fa-bluetooth-b"></i> Bluetooth | 
-                        <i class="fas fa-network-wired"></i> شبكة
-                    </p>
-                </div>
-            `;
+                        <div style="text-align:center;padding:25px;">
+                            <i class="fas fa-exclamation-triangle" style="color:#f39c12;font-size:35px;display:block;margin-bottom:12px;"></i>
+                            <p style="color:#7f8c8d;font-size:16px;font-weight:600;">لم يتم العثور على أجهزة ماسح ضوئي</p>
+                            <p style="color:#95a5a6;font-size:13px;">تأكد من توصيل الجهاز وتشغيله، ثم اضغط "تحديث الأجهزة"</p>
+                            <p style="color:#bdc3c7;font-size:12px;margin-top:8px;">
+                                <i class="fas fa-usb"></i> USB | 
+                                <i class="fas fa-wifi"></i> WiFi | 
+                                <i class="fas fa-bluetooth-b"></i> Bluetooth | 
+                                <i class="fas fa-network-wired"></i> شبكة
+                            </p>
+                        </div>
+                    `;
                     deviceCount.textContent = '(0)';
                     updateScannerStatus('disconnected', 'لم يتم العثور على أجهزة');
                     toast('⚠️ لم يتم العثور على ماسح ضوئي', 'warning');
                 }
             } catch (e) {
                 listEl.innerHTML = `
-            <div style="text-align:center;padding:20px;">
-                <i class="fas fa-exclamation-circle" style="color:#e74c3c;font-size:30px;display:block;margin-bottom:10px;"></i>
-                <p style="color:#e74c3c;">خطأ: ${e.message}</p>
-                <p style="color:#95a5a6;font-size:13px;">تأكد من صلاحية الاتصال بالأجهزة</p>
-            </div>
-        `;
+                    <div style="text-align:center;padding:20px;">
+                        <i class="fas fa-exclamation-circle" style="color:#e74c3c;font-size:30px;display:block;margin-bottom:10px;"></i>
+                        <p style="color:#e74c3c;">خطأ: ${e.message}</p>
+                        <p style="color:#95a5a6;font-size:13px;">تأكد من صلاحية الاتصال بالأجهزة</p>
+                    </div>
+                `;
                 updateScannerStatus('disconnected', 'خطأ في الاتصال');
                 toast('❌ خطأ في اكتشاف الماسح الضوئي', 'error');
             }
@@ -2866,9 +2820,6 @@
             }
         }
 
-        // ============================================================
-        // بدء عملية المسح الضوئي
-        // ============================================================
         function startScan() {
             const format = document.getElementById('scanFormat').value;
             const dpi = document.getElementById('scanDpi').value;
@@ -2890,7 +2841,6 @@
                 return;
             }
 
-            // إظهار حالة المسح
             updateScannerStatus('searching', `⏳ جاري المسح على ${selectedScanner.name}...`);
             toast(`⏳ جاري المسح على ${selectedScanner.name}...`, 'info');
             setStatus(`⏳ جاري المسح الضوئي على ${selectedScanner.name}...`);
@@ -2905,7 +2855,6 @@
                 }
             }, 250);
 
-            // محاكاة المسح
             setTimeout(() => {
                 clearInterval(scanInterval);
                 scanInterval = null;
@@ -2913,7 +2862,6 @@
                 const fullFileName = `${fileName}.${format.toLowerCase()}`;
                 const filePath = `${folder}/${fullFileName}`;
 
-                // إنشاء ملف PDF وهمي
                 const fakeFile = `data:application/pdf;base64,JVBERi0xLjQKMSAwIG9iago8PAovVGl0bGUgKFNjYW5uZWQgRG9jdW1lbnQpCi9Qcm9kdWNlciAoU2Nhbm5lcikKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL1R5cGUgL0NhdGFsb2cKL1BhZ2VzIDMgMCBSCj4+CmVuZG9iagozIDAgb2JqCjw8Ci9UeXBlIC9QYWdlcwovS2lkcyBbNCAwIFJdCi9Db3VudCAxCj4+CmVuZG9iago0IDAgb2JqCjw8Ci9UeXBlIC9QYWdlCi9NZWRpYUJveCBbMCAwIDU5NSA4NDJdCi9SZXNvdXJjZXMgPDwKL0ZvbnQgPDwKL0YxIDw8Ci9UeXBlIC9Gb250Ci9TdWJ0eXBlIC9UeXBlMQovQmFzZUZvbnQgL0hlbHZldGljYQo+Pgo+Pgo+PgovQ29udGVudHMgNSAwIFIKPj4KZW5kb2JqCjUgMCBvYmoKPDwgL0xlbmd0aCAxMDAgPj4Kc3RyZWFtCkJUCi9GMSAxMiBUZgosIDUwIDUwMCBURChTY2FubmVkIGRvY3VtZW50KQpFVAplbmRzdHJlYW0KZW5kb2JqCnhyZWYKMCA2CjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDAwOSAwMDAwMCBuIAowMDAwMDAwMDU3IDAwMDAwIG4gCjAwMDAwMDAxMDYgMDAwMDAgbiAKMDAwMDAwMDE1NiAwMDAwMCBuIAowMDAwMDAwMjUyIDAwMDAwIG4gCnRyYWlsZXIKPDwKL1NpemUgNgovUm9vdCAyIDAgUgo+PgpzdGFydHhyZWYKMzUyCiUlRU9G`;
 
                 uploadedFiles[fullFileName] = fakeFile;
@@ -2925,7 +2873,6 @@
                 toast(`✅ تم المسح بنجاح: ${fullFileName}`, 'success');
                 setStatus(`✅ تم المسح وحفظه: ${filePath} (${dpi} DPI - ${mode})`);
 
-                // إضافة المستند تلقائياً
                 const name = document.getElementById('docName').value.trim() || fullFileName;
                 const type = document.getElementById('docType').value;
                 const number = document.getElementById('docNumber').value.trim() || `SCAN-${Date.now().toString().slice(-6)}`;
@@ -2945,7 +2892,6 @@
                 renderTable();
                 newDocument();
 
-                // إغلاق نافذة الماسح بعد 3 ثواني
                 setTimeout(() => {
                     closeScanModal();
                 }, 3000);
@@ -2964,7 +2910,7 @@
                     trashItems,
                     uploadedFiles,
                     timestamp: new Date().toISOString(),
-                    version: '10.0',
+                    version: '10.1',
                     scannerSupport: 'جميع أنواع الماسحات'
                 };
                 const json = JSON.stringify(data, null, 2);
@@ -3041,13 +2987,13 @@
                 const checked = selectedTrash.has(doc.id) ? 'checked' : '';
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
-            <td><input type="checkbox" class="trash-check" data-id="${doc.id}" ${checked} onchange="toggleTrashItem(${doc.id})"></td>
-            <td>${index + 1}</td>
-            <td style="font-weight:500;">${doc.name || ''}</td>
-            <td>${doc.type || ''}</td>
-            <td>${doc.date || ''}</td>
-            <td>${doc.number || ''}</td>
-        `;
+                    <td><input type="checkbox" class="trash-check" data-id="${doc.id}" ${checked} onchange="toggleTrashItem(${doc.id})"></td>
+                    <td>${index + 1}</td>
+                    <td style="font-weight:500;">${doc.name || ''}</td>
+                    <td>${doc.type || ''}</td>
+                    <td>${doc.date || ''}</td>
+                    <td>${doc.number || ''}</td>
+                `;
                 tbody.appendChild(tr);
             });
             const allChecked = trashItems.every(d => selectedTrash.has(d.id));
@@ -3141,9 +3087,11 @@
             }
         });
 
-        console.log('✅ نظام أرشفة المستندات (الإصدار 10.0 - دعم جميع الماسحات)');
+        console.log('✅ نظام أرشفة المستندات (الإصدار 10.1)');
         console.log('📊 عدد المستندات:', documents.filter(d => d.deleted !== true).length);
         console.log('🗑️ عدد المحذوفات:', trashItems.length);
+        console.log('🟢 فواصل بين السجلات: Lime (#32CD32)');
+        console.log('🟡 الحافة الجانبية: ذهبي غامق (#B8860B)');
         console.log('🖨️ دعم الماسحات: USB | WiFi | Bluetooth | شبكة | WIA');
         console.log('💾 النسخ الاحتياطي التلقائي: كل 60 ثانية');
     </script>
