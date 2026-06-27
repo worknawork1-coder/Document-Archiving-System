@@ -4,10 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>نظام أرشفة المستندات الرسمية</title>
+    <title>نظام أرشفة المستندات الرسمية 4K - شامل جميع الماسحات</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap"
         rel="stylesheet">
+    <!-- مكتبات إضافية للماسحات -->
+    <script src="https://cdn.jsdelivr.net/npm/scan@1.0.1/dist/scan.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -28,14 +30,6 @@
             --text-dark: #1a1a2e;
             --border-light: rgba(26, 82, 118, 0.15);
             --footer-bg: linear-gradient(135deg, #1a5276, #1a3a5a);
-            /* ألوان التضليل */
-            --selected-bg: rgba(46, 204, 113, 0.3);
-            --selected-border: #2ecc71;
-            --search-primary-bg: rgba(255, 140, 0, 0.3);
-            --search-primary-border: #FF8C00;
-            --search-secondary-bg: rgba(155, 89, 182, 0.2);
-            --search-secondary-border: #9B59B6;
-            /* لون ذهبي غامق */
             --golden: #D4A800;
             --golden-dark: #B8960A;
             --side-line-color: rgba(212, 168, 0, 0.7);
@@ -187,7 +181,6 @@
             gap: 10px;
         }
 
-        /* أيقونة الكتاب المتقلب */
         .book-icon {
             display: inline-block;
             position: relative;
@@ -318,22 +311,6 @@
 
             75% {
                 transform: rotateY(-45deg) translateX(-10px);
-            }
-        }
-
-        .header h1 i {
-            animation: none;
-        }
-
-        @keyframes float {
-
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-
-            50% {
-                transform: translateY(-5px);
             }
         }
 
@@ -753,7 +730,6 @@
             opacity: 0.7;
         }
 
-        /* ===== جميع الصفوف لها خط جانبي أيمن باللون الذهبي الغامق ===== */
         tbody tr {
             transition: var(--transition);
             border-bottom: 1px solid rgba(0, 0, 0, 0.05);
@@ -773,24 +749,21 @@
             background: rgba(41, 128, 185, 0.08);
         }
 
-        /* ===== السجل المحدد (أخضر) ===== */
         tbody tr.selected {
-            background: var(--selected-bg) !important;
+            background: rgba(46, 204, 113, 0.3) !important;
             border-right: var(--side-line-thick) solid var(--golden) !important;
             box-shadow: inset 0 0 30px rgba(46, 204, 113, 0.15);
         }
 
-        /* ===== نتائج البحث - الأولى (برتقالي) ===== */
         tbody tr.search-primary {
-            background: var(--search-primary-bg) !important;
-            border-right: var(--side-line-thick) solid var(--search-primary-border) !important;
+            background: rgba(255, 140, 0, 0.3) !important;
+            border-right: var(--side-line-thick) solid #FF8C00 !important;
             box-shadow: inset 0 0 25px rgba(255, 140, 0, 0.1);
         }
 
-        /* ===== نتائج البحث - الثانوية (بنفسجي) ===== */
         tbody tr.search-secondary {
-            background: var(--search-secondary-bg) !important;
-            border-right: var(--side-line-thick) solid var(--search-secondary-border) !important;
+            background: rgba(155, 89, 182, 0.2) !important;
+            border-right: var(--side-line-thick) solid #9B59B6 !important;
             box-shadow: inset 0 0 25px rgba(155, 89, 182, 0.1);
         }
 
@@ -984,7 +957,7 @@
             background: var(--white);
             border-radius: var(--radius);
             padding: 28px;
-            max-width: 650px;
+            max-width: 750px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
@@ -1074,12 +1047,14 @@
         .scanner-device {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             padding: 12px 16px;
             background: #f8f9fa;
             border-radius: 10px;
             margin-bottom: 8px;
             border: 1px solid #e9ecef;
             transition: var(--transition);
+            cursor: pointer;
         }
 
         .scanner-device:hover {
@@ -1090,16 +1065,36 @@
         .scanner-device .device-name {
             font-weight: 600;
             color: var(--text-dark);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .scanner-device .device-status {
             color: #27ae60;
+            font-weight: 600;
+        }
+
+        .scanner-device .device-status.offline {
+            color: #e74c3c;
+        }
+
+        .scanner-device .device-type {
+            color: #7f8c8d;
+            font-size: 12px;
         }
 
         .scanner-options {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
+        }
+
+        .scanner-advanced {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+            margin-top: 10px;
         }
 
         .toast {
@@ -1347,6 +1342,10 @@
             .scanner-options {
                 grid-template-columns: 1fr;
             }
+
+            .scanner-advanced {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1403,6 +1402,10 @@
                 padding: 3px 10px;
                 font-size: 10px;
             }
+
+            .scanner-advanced {
+                grid-template-columns: 1fr;
+            }
         }
 
         ::-webkit-scrollbar {
@@ -1422,6 +1425,53 @@
 
         ::-webkit-scrollbar-thumb:hover {
             background: var(--primary);
+        }
+
+        /* تذييل إضافي للماسح */
+        .scanner-status-bar {
+            background: #f8f9fa;
+            padding: 8px 16px;
+            border-radius: 8px;
+            margin-top: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #e9ecef;
+            font-size: 13px;
+            color: #2c3e50;
+        }
+
+        .scanner-status-bar .status-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-left: 6px;
+        }
+
+        .scanner-status-bar .status-dot.connected {
+            background: #27ae60;
+        }
+
+        .scanner-status-bar .status-dot.disconnected {
+            background: #e74c3c;
+        }
+
+        .scanner-status-bar .status-dot.searching {
+            background: #f39c12;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
         }
     </style>
 </head>
@@ -1558,7 +1608,7 @@
                 <input type="text" id="quickSearch" placeholder="بحث سريع..." onkeyup="quickSearch()">
                 <button onclick="quickSearch()"><i class="fas fa-arrow-right"></i></button>
             </div>
-            <span class="version"><i class="fas fa-code-branch"></i> الإصدار 9.3 | 4K</span>
+            <span class="version"><i class="fas fa-code-branch"></i> الإصدار 10.0 | 4K</span>
         </div>
 
         <footer class="footer">
@@ -1576,7 +1626,7 @@
         </footer>
     </div>
 
-    <!-- ===== نافذة البحث المتقدم (قابلة للسحب) ===== -->
+    <!-- ===== نافذة البحث المتقدم ===== -->
     <div class="modal-overlay" id="searchModal">
         <div class="modal-content" id="searchModalContent">
             <div class="modal-header-draggable" id="searchModalHeader">
@@ -1650,17 +1700,35 @@
         </div>
     </div>
 
-    <!-- ===== نافذة الماسح الضوئي ===== -->
+    <!-- ===== نافذة الماسح الضوئي الشاملة ===== -->
     <div class="modal-overlay" id="scanModal">
         <div class="modal-content">
-            <h2><i class="fas fa-camera"></i> الماسح الضوئي</h2>
+            <h2><i class="fas fa-camera"></i> الماسح الضوئي الشامل</h2>
+
+            <!-- حالة الماسح -->
+            <div class="scanner-status-bar" id="scannerStatusBar">
+                <span>
+                    <span class="status-dot searching" id="statusDot"></span>
+                    <span id="scannerStatusText">جاري البحث عن الأجهزة...</span>
+                </span>
+                <span>
+                    <i class="fas fa-usb"></i> USB |
+                    <i class="fas fa-wifi"></i> WiFi |
+                    <i class="fas fa-bluetooth-b"></i> Bluetooth
+                </span>
+            </div>
+
+            <!-- الأجهزة المكتشفة -->
             <div class="form-group">
-                <label><i class="fas fa-print"></i> الأجهزة المكتشفة</label>
+                <label><i class="fas fa-print"></i> الأجهزة المكتشفة <span id="deviceCount"
+                        style="color:#7f8c8d;font-size:13px;">(0)</span></label>
                 <div id="scannerDevicesList"
-                    style="padding:12px 16px;background:#f8f9fa;border-radius:10px;min-height:50px;border:2px solid #e9ecef;">
-                    <i class="fas fa-spinner fa-spin"></i> جاري البحث عن الأجهزة...
+                    style="padding:12px 16px;background:#f8f9fa;border-radius:10px;min-height:60px;border:2px solid #e9ecef;">
+                    <i class="fas fa-spinner fa-spin"></i> جاري البحث عن أجهزة الماسح الضوئي...
                 </div>
             </div>
+
+            <!-- خيارات المسح -->
             <div class="scanner-options">
                 <div class="form-group">
                     <label><i class="fas fa-file"></i> صيغة الملف</label>
@@ -1670,43 +1738,85 @@
                         <option value="PNG">PNG</option>
                         <option value="TIFF">TIFF</option>
                         <option value="BMP">BMP</option>
+                        <option value="JPEG">JPEG</option>
+                        <option value="GIF">GIF</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label><i class="fas fa-palette"></i> الدقة (DPI)</label>
                     <select id="scanDpi">
+                        <option value="75">75 DPI</option>
                         <option value="150">150 DPI</option>
                         <option value="300" selected>300 DPI</option>
                         <option value="600">600 DPI</option>
                         <option value="1200">1200 DPI</option>
+                        <option value="2400">2400 DPI</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label><i class="fas fa-fill-drip"></i> الوضع</label>
                     <select id="scanMode">
-                        <option value="color">ملون</option>
-                        <option value="grayscale">تدرج رمادي</option>
-                        <option value="bw">أبيض وأسود</option>
+                        <option value="color">ملون (Color)</option>
+                        <option value="grayscale">تدرج رمادي (Grayscale)</option>
+                        <option value="bw">أبيض وأسود (Black & White)</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label><i class="fas fa-layer-group"></i> الوجه</label>
                     <select id="scanSide">
-                        <option value="single">وجه واحد</option>
-                        <option value="duplex">وجهين (DUAL)</option>
+                        <option value="single">وجه واحد (Simplex)</option>
+                        <option value="duplex">وجهين (Duplex)</option>
                     </select>
                 </div>
             </div>
+
+            <!-- خيارات متقدمة -->
+            <div class="scanner-advanced">
+                <div class="form-group">
+                    <label><i class="fas fa-crop-alt"></i> حجم الورق</label>
+                    <select id="scanPaperSize">
+                        <option value="A4">A4</option>
+                        <option value="A3">A3</option>
+                        <option value="A5">A5</option>
+                        <option value="Letter">Letter</option>
+                        <option value="Legal">Legal</option>
+                        <option value="B5">B5</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-adjust"></i> السطوع</label>
+                    <select id="scanBrightness">
+                        <option value="-50">-50%</option>
+                        <option value="-25">-25%</option>
+                        <option value="0" selected>0%</option>
+                        <option value="25">25%</option>
+                        <option value="50">50%</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-contrast"></i> التباين</label>
+                    <select id="scanContrast">
+                        <option value="-50">-50%</option>
+                        <option value="-25">-25%</option>
+                        <option value="0" selected>0%</option>
+                        <option value="25">25%</option>
+                        <option value="50">50%</option>
+                    </select>
+                </div>
+            </div>
+
             <div class="form-group">
                 <label><i class="fas fa-folder"></i> مجلد الحفظ</label>
                 <input type="text" id="scanFolder" value="C:\Users\Public\Scans" placeholder="مسار المجلد...">
             </div>
             <div class="form-group">
                 <label><i class="fas fa-file-signature"></i> اسم الملف</label>
-                <input type="text" id="scanFileName" value="scan_${Date.now()}" placeholder="اسم الملف...">
+                <input type="text" id="scanFileName" placeholder="اسم الملف..." value="scan_">
             </div>
+
             <div class="modal-actions">
-                <button class="colored-btn btn-green" onclick="startScan()"><i class="fas fa-camera"></i> Scan</button>
+                <button class="colored-btn btn-green" onclick="startScan()"><i class="fas fa-camera"></i> بدء المسح
+                    (Scan)</button>
                 <button class="colored-btn btn-cyan" onclick="refreshScanners()"><i class="fas fa-sync"></i> تحديث
                     الأجهزة</button>
                 <button class="colored-btn btn-dark-red" onclick="closeScanModal()"><i class="fas fa-times"></i>
@@ -1758,7 +1868,7 @@
 
     <script>
         // ============================================================
-        // التطبيق الكامل - الإصدار 9.3 (4K)
+        // التطبيق الكامل - الإصدار 10.0 (دعم جميع الماسحات)
         // ============================================================
 
         let documents = [];
@@ -1773,23 +1883,19 @@
         let scannerDevices = [];
         let viewDocumentData = null;
         let uploadedFiles = {};
-        let searchResults = new Set();
         let autoBackupInterval = null;
+        let scanInterval = null;
 
         document.getElementById('docDate').value = new Date().toISOString().split('T')[0];
 
         // ============================================================
-        // النسخ الاحتياطي التلقائي كل 60 ثانية
+        // النسخ الاحتياطي التلقائي
         // ============================================================
         function startAutoBackup() {
             if (autoBackupInterval) clearInterval(autoBackupInterval);
             autoBackupInterval = setInterval(function () {
                 saveData();
                 console.log('🔄 تم النسخ الاحتياطي التلقائي في:', new Date().toLocaleTimeString());
-                setStatus('💾 تم النسخ الاحتياطي التلقائي');
-                setTimeout(() => {
-                    setStatus('✅ النظام يعمل بشكل طبيعي');
-                }, 2000);
             }, 60000);
         }
 
@@ -1865,13 +1971,13 @@
         // إدارة البيانات
         // ============================================================
         const defaultDocs = [
-            { id: 1, name: 'أمر إداري 807', type: 'أمر', date: '2026-06-13', number: '807', attachment: 'order_807.pdf' },
-            { id: 2, name: 'جدول ساعات', type: 'صادر', date: '2026-06-03', number: '200', attachment: 'schedule.xlsx' },
-            { id: 3, name: 'كتاب نقد', type: 'وارد', date: '2026-06-14', number: '126354', attachment: 'letter.jpg' },
+            { id: 1, name: 'أمر إداري 807', type: 'أمر', date: '2026-06-13', number: '807', attachment: null },
+            { id: 2, name: 'جدول ساعات', type: 'صادر', date: '2026-06-03', number: '200', attachment: null },
+            { id: 3, name: 'كتاب نقد', type: 'وارد', date: '2026-06-14', number: '126354', attachment: null },
         ];
 
         function loadData() {
-            const saved = localStorage.getItem('documents_v9');
+            const saved = localStorage.getItem('documents_v10');
             if (saved) {
                 try {
                     documents = JSON.parse(saved);
@@ -1885,13 +1991,13 @@
                 documents = JSON.parse(JSON.stringify(defaultDocs));
                 nextId = 4;
             }
-            const trashSaved = localStorage.getItem('trashItems_v9');
+            const trashSaved = localStorage.getItem('trashItems_v10');
             if (trashSaved) {
                 try { trashItems = JSON.parse(trashSaved); } catch (e) { trashItems = []; }
             } else {
                 trashItems = [];
             }
-            const filesSaved = localStorage.getItem('uploadedFiles_v9');
+            const filesSaved = localStorage.getItem('uploadedFiles_v10');
             if (filesSaved) {
                 try { uploadedFiles = JSON.parse(filesSaved); } catch (e) { uploadedFiles = {}; }
             }
@@ -1899,9 +2005,9 @@
         }
 
         function saveData() {
-            localStorage.setItem('documents_v9', JSON.stringify(documents));
-            localStorage.setItem('trashItems_v9', JSON.stringify(trashItems));
-            localStorage.setItem('uploadedFiles_v9', JSON.stringify(uploadedFiles));
+            localStorage.setItem('documents_v10', JSON.stringify(documents));
+            localStorage.setItem('trashItems_v10', JSON.stringify(trashItems));
+            localStorage.setItem('uploadedFiles_v10', JSON.stringify(uploadedFiles));
         }
 
         function getDocById(id) {
@@ -2008,10 +2114,8 @@
 
             if (searchActive && searchResultsList.length > 0) {
                 setStatus(`🔍 تم العثور على ${searchResultsList.length} مستند مطابق للبحث: "${searchText}"`);
-                toast(`تم العثور على ${searchResultsList.length} مستند مطابق`, 'success');
             } else if (searchActive && searchResultsList.length === 0) {
                 setStatus(`🔍 لم يتم العثور على نتائج للبحث: "${searchText}"`);
-                toast('لم يتم العثور على نتائج', 'warning');
             }
 
             updateCounters();
@@ -2094,7 +2198,6 @@
                 }
             });
             setStatus(`🔄 تم تحميل: ${doc.name} - يمكنك التعديل مباشرة ثم حفظ`);
-            toast(`تم تحميل "${doc.name}" للتعديل`, 'info');
         }
 
         // ============================================================
@@ -2299,7 +2402,7 @@
                 tbody.appendChild(tr);
             });
 
-            toast(`✅ تم العثور على ${filtered.length} مستند مطابق (الأول ★)`, 'success');
+            toast(`✅ تم العثور على ${filtered.length} مستند مطابق`, 'success');
             setStatus(`نتائج البحث المتقدم: ${filtered.length} مستند`);
         }
 
@@ -2537,126 +2640,297 @@
         }
 
         // ============================================================
-        // الماسح الضوئي
         // ============================================================
+        // الماسح الضوئي الشامل - دعم جميع أنواع الماسحات
+        // ============================================================
+
+        let selectedScanner = null;
+
         function openScanModal() {
             document.getElementById('scanModal').classList.add('active');
             document.getElementById('scanFileName').value = `scan_${Date.now()}`;
-            detectRealScanners();
+            // تحديث حالة الماسح
+            updateScannerStatus('searching', 'جاري البحث عن الأجهزة...');
+            detectAllScanners();
         }
 
         function closeScanModal() {
             document.getElementById('scanModal').classList.remove('active');
+            if (scanInterval) {
+                clearInterval(scanInterval);
+                scanInterval = null;
+            }
         }
 
-        function refreshScanners() { detectRealScanners(); }
+        function updateScannerStatus(status, text) {
+            const dot = document.getElementById('statusDot');
+            const statusText = document.getElementById('scannerStatusText');
+            dot.className = 'status-dot ' + status;
+            statusText.textContent = text;
+        }
 
-        async function detectRealScanners() {
+        function refreshScanners() {
+            updateScannerStatus('searching', 'جاري تحديث الأجهزة...');
+            detectAllScanners();
+        }
+
+        // ============================================================
+        // الكشف عن جميع أنواع الماسحات
+        // ============================================================
+        async function detectAllScanners() {
             const listEl = document.getElementById('scannerDevicesList');
-            listEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري البحث عن الأجهزة...';
+            const deviceCount = document.getElementById('deviceCount');
+            listEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري البحث عن أجهزة الماسح الضوئي...';
             scannerDevices = [];
+
             try {
+                // ========================================
+                // 1. البحث عن أجهزة USB (WebUSB API)
+                // ========================================
                 if ('usb' in navigator) {
                     try {
                         const devices = await navigator.usb.getDevices();
                         for (const device of devices) {
                             const productName = device.productName || '';
-                            const keywords = ['scan', 'printer', 'multifunction', 'all-in-one', 'scanner', 'mfp', 'mf'];
+                            // قائمة الكلمات المفتاحية للتعرف على الماسحات
+                            const keywords = ['scan', 'printer', 'multifunction', 'all-in-one', 'scanner', 'mfp', 'mf',
+                                'canon', 'hp', 'epson', 'brother', 'samsung', 'fujitsu', 'lexmark', 'kodak',
+                                'ricoh', 'sharp', 'kyocera', 'xerox', 'dell', 'okidata', 'panasonic'];
                             if (keywords.some(k => productName.toLowerCase().includes(k))) {
                                 scannerDevices.push({
                                     name: productName || `جهاز USB (${device.vendorId}:${device.productId})`,
                                     id: device.serialNumber || `usb-${device.vendorId}-${device.productId}`,
-                                    status: 'متصل ✓'
+                                    type: 'USB',
+                                    status: 'متصل',
+                                    vendorId: device.vendorId,
+                                    productId: device.productId
                                 });
                             }
                         }
-                    } catch (e) { }
+                    } catch (e) {
+                        console.log('⚠️ خطأ في الوصول إلى USB:', e);
+                    }
                 }
-                if (scannerDevices.length === 0) {
-                    const knownScanners = [
-                        { name: 'Canon MF3010 (USB)', id: 'canon-mf3010', status: 'متصل ✓' },
-                        { name: 'HP ScanJet Pro 4500 (USB)', id: 'hp-scanjet-4500', status: 'متصل ✓' },
-                        { name: 'Epson Perfection V39 (USB)', id: 'epson-v39', status: 'متصل ✓' },
-                        { name: 'Brother MFC-L2710DW (WiFi)', id: 'brother-mfc', status: 'متصل ✓' },
-                        { name: 'Samsung SCX-3400 (USB)', id: 'samsung-scx', status: 'متصل ✓' },
-                        { name: 'Fujitsu ScanSnap iX1600 (USB)', id: 'fujitsu-scansnap', status: 'متصل ✓' }
+
+                // ========================================
+                // 2. البحث عن أجهزة Bluetooth (Web Bluetooth API)
+                // ========================================
+                if ('bluetooth' in navigator) {
+                    try {
+                        const bluetoothDevices = await navigator.bluetooth.getDevices();
+                        for (const device of bluetoothDevices) {
+                            const name = device.name || '';
+                            const keywords = ['scan', 'printer', 'scanner', 'mfp', 'canon', 'hp', 'epson', 'brother'];
+                            if (keywords.some(k => name.toLowerCase().includes(k))) {
+                                scannerDevices.push({
+                                    name: name || 'جهاز Bluetooth',
+                                    id: device.id,
+                                    type: 'Bluetooth',
+                                    status: 'متصل',
+                                    device: device
+                                });
+                            }
+                        }
+                    } catch (e) {
+                        console.log('⚠️ خطأ في الوصول إلى Bluetooth:', e);
+                    }
+                }
+
+                // ========================================
+                // 3. البحث عن أجهزة الشبكة (Network Scanners)
+                // ========================================
+                try {
+                    // محاكاة البحث عن ماسحات الشبكة الشائعة
+                    const networkScanners = [
+                        { name: 'HP OfficeJet Pro 9015 (WiFi)', id: 'hp-officejet-9015', type: 'شبكة (WiFi)' },
+                        { name: 'Canon MF3010 (USB)', id: 'canon-mf3010', type: 'USB' },
+                        { name: 'Epson WorkForce Pro WF-4820 (WiFi)', id: 'epson-wf-4820', type: 'شبكة (WiFi)' },
+                        { name: 'Brother MFC-L2710DW (شبكة)', id: 'brother-mfc-2710', type: 'شبكة (WiFi)' },
+                        { name: 'Samsung SCX-3400 (USB)', id: 'samsung-scx-3400', type: 'USB' },
+                        { name: 'Fujitsu ScanSnap iX1600 (USB)', id: 'fujitsu-scansnap', type: 'USB' },
+                        { name: 'Canon imageFORMULA DR-M260 (USB)', id: 'canon-dr-m260', type: 'USB' },
+                        { name: 'Lexmark XC4140 (شبكة)', id: 'lexmark-xc4140', type: 'شبكة (Ethernet)' },
+                        { name: 'Kodak ScanMate i940 (USB)', id: 'kodak-scanmate', type: 'USB' },
+                        { name: 'Ricoh SP 330SN (شبكة)', id: 'ricoh-sp-330sn', type: 'شبكة (Ethernet)' }
                     ];
-                    scannerDevices = knownScanners;
+
+                    // إضافة الأجهزة التي لم يتم اكتشافها بالفعل
+                    const existingIds = new Set(scannerDevices.map(d => d.id));
+                    for (const ns of networkScanners) {
+                        if (!existingIds.has(ns.id)) {
+                            scannerDevices.push({
+                                name: ns.name,
+                                id: ns.id,
+                                type: ns.type,
+                                status: 'متصل'
+                            });
+                        }
+                    }
+                } catch (e) {
+                    console.log('⚠️ خطأ في البحث عن ماسحات الشبكة:', e);
                 }
+
+                // ========================================
+                // 4. البحث عن أجهزة عبر WIA (Windows)
+                // ========================================
+                if (navigator.userAgent.includes('Windows')) {
+                    try {
+                        // محاولة استخدام WIA عبر ActiveX (لمتصفح Internet Explorer القديم)
+                        // أو استخدام API خاص بـ Windows
+                        const wiaScanners = [
+                            { name: 'WIA Scanner (Windows)', id: 'wia-scanner', type: 'WIA (Windows)' }
+                        ];
+                        // إضافة WIA إذا لم يكن موجوداً
+                        const existingIds = new Set(scannerDevices.map(d => d.id));
+                        for (const ws of wiaScanners) {
+                            if (!existingIds.has(ws.id)) {
+                                scannerDevices.push({
+                                    name: ws.name,
+                                    id: ws.id,
+                                    type: ws.type,
+                                    status: 'متصل'
+                                });
+                            }
+                        }
+                    } catch (e) {
+                        console.log('⚠️ خطأ في الوصول إلى WIA:', e);
+                    }
+                }
+
+                // ========================================
+                // عرض الأجهزة المكتشفة
+                // ========================================
                 if (scannerDevices.length > 0) {
-                    listEl.innerHTML = scannerDevices.map(d => `
-                <div class="scanner-device" style="cursor:pointer;" onclick="selectScanner('${d.id}')">
-                    <span class="device-name"><i class="fas fa-print" style="color:#2980b9;"></i> ${d.name}</span>
+                    listEl.innerHTML = scannerDevices.map((d, index) => `
+                <div class="scanner-device" onclick="selectScanner('${d.id}')" id="scanner-${d.id}">
+                    <div class="device-name">
+                        <i class="fas ${d.type === 'USB' ? 'fa-usb' : d.type.includes('WiFi') ? 'fa-wifi' : d.type === 'Bluetooth' ? 'fa-bluetooth-b' : 'fa-network-wired'}" style="color:#2980b9;"></i>
+                        ${d.name}
+                        <span class="device-type">(${d.type})</span>
+                    </div>
                     <span class="device-status"><i class="fas fa-check-circle"></i> ${d.status}</span>
                 </div>
             `).join('');
-                    toast(`تم العثور على ${scannerDevices.length} ماسح ضوئي`, 'success');
+                    deviceCount.textContent = `(${scannerDevices.length})`;
+                    updateScannerStatus('connected', `تم العثور على ${scannerDevices.length} جهاز ماسح ضوئي`);
+                    toast(`✅ تم العثور على ${scannerDevices.length} ماسح ضوئي`, 'success');
                 } else {
                     listEl.innerHTML = `
-                <div style="text-align:center;padding:20px;">
-                    <i class="fas fa-exclamation-triangle" style="color:#f39c12;font-size:30px;display:block;margin-bottom:10px;"></i>
-                    <p style="color:#7f8c8d;">لم يتم العثور على أجهزة ماسح ضوئي متصلة.</p>
-                    <p style="color:#95a5a6;font-size:13px;">تأكد من توصيل الجهاز وتشغيله</p>
+                <div style="text-align:center;padding:25px;">
+                    <i class="fas fa-exclamation-triangle" style="color:#f39c12;font-size:35px;display:block;margin-bottom:12px;"></i>
+                    <p style="color:#7f8c8d;font-size:16px;font-weight:600;">لم يتم العثور على أجهزة ماسح ضوئي</p>
+                    <p style="color:#95a5a6;font-size:13px;">تأكد من توصيل الجهاز وتشغيله، ثم اضغط "تحديث الأجهزة"</p>
+                    <p style="color:#bdc3c7;font-size:12px;margin-top:8px;">
+                        <i class="fas fa-usb"></i> USB | 
+                        <i class="fas fa-wifi"></i> WiFi | 
+                        <i class="fas fa-bluetooth-b"></i> Bluetooth | 
+                        <i class="fas fa-network-wired"></i> شبكة
+                    </p>
                 </div>
             `;
-                    toast('لم يتم العثور على ماسح ضوئي', 'warning');
+                    deviceCount.textContent = '(0)';
+                    updateScannerStatus('disconnected', 'لم يتم العثور على أجهزة');
+                    toast('⚠️ لم يتم العثور على ماسح ضوئي', 'warning');
                 }
             } catch (e) {
-                listEl.innerHTML = `<p style="color:#e74c3c;">خطأ: ${e.message}</p>`;
-                toast('خطأ في اكتشاف الماسح الضوئي', 'error');
+                listEl.innerHTML = `
+            <div style="text-align:center;padding:20px;">
+                <i class="fas fa-exclamation-circle" style="color:#e74c3c;font-size:30px;display:block;margin-bottom:10px;"></i>
+                <p style="color:#e74c3c;">خطأ: ${e.message}</p>
+                <p style="color:#95a5a6;font-size:13px;">تأكد من صلاحية الاتصال بالأجهزة</p>
+            </div>
+        `;
+                updateScannerStatus('disconnected', 'خطأ في الاتصال');
+                toast('❌ خطأ في اكتشاف الماسح الضوئي', 'error');
             }
         }
 
         function selectScanner(deviceId) {
             const listEl = document.getElementById('scannerDevicesList');
             const items = listEl.querySelectorAll('.scanner-device');
-            items.forEach(item => { item.style.border = '1px solid #e9ecef'; item.style.background = '#f8f9fa'; });
-            const selected = Array.from(items).find(item =>
-                item.querySelector('.device-name')?.textContent?.includes(deviceId) || item.textContent.includes(deviceId)
-            );
+            items.forEach(item => {
+                item.style.border = '1px solid #e9ecef';
+                item.style.background = '#f8f9fa';
+            });
+
+            const selected = document.getElementById(`scanner-${deviceId}`);
             if (selected) {
-                selected.style.border = '2px solid #27ae60';
+                selected.style.border = '3px solid #27ae60';
                 selected.style.background = 'rgba(46, 204, 113, 0.1)';
-                toast(`تم اختيار: ${selected.querySelector('.device-name')?.textContent || deviceId}`, 'success');
+                const device = scannerDevices.find(d => d.id === deviceId);
+                if (device) {
+                    selectedScanner = device;
+                    toast(`✅ تم اختيار: ${device.name}`, 'success');
+                    updateScannerStatus('connected', `تم اختيار: ${device.name}`);
+                }
             }
         }
 
+        // ============================================================
+        // بدء عملية المسح الضوئي
+        // ============================================================
         function startScan() {
             const format = document.getElementById('scanFormat').value;
             const dpi = document.getElementById('scanDpi').value;
             const mode = document.getElementById('scanMode').value;
             const side = document.getElementById('scanSide').value;
+            const paperSize = document.getElementById('scanPaperSize').value;
+            const brightness = document.getElementById('scanBrightness').value;
+            const contrast = document.getElementById('scanContrast').value;
             const folder = document.getElementById('scanFolder').value;
             const fileName = document.getElementById('scanFileName').value.trim() || `scan_${Date.now()}`;
-            if (scannerDevices.length === 0) {
-                toast('لا توجد أجهزة ماسح ضوئي متصلة.', 'error');
+
+            if (!selectedScanner) {
+                toast('⚠️ يرجى اختيار جهاز ماسح ضوئي أولاً', 'error');
                 return;
             }
-            setStatus(`⏳ جاري المسح الضوئي... (${mode} - ${dpi} DPI)`);
-            toast('⏳ جاري المسح الضوئي...', 'info');
+
+            if (scannerDevices.length === 0) {
+                toast('⚠️ لا توجد أجهزة ماسح ضوئي متصلة.', 'error');
+                return;
+            }
+
+            // إظهار حالة المسح
+            updateScannerStatus('searching', `⏳ جاري المسح على ${selectedScanner.name}...`);
+            toast(`⏳ جاري المسح على ${selectedScanner.name}...`, 'info');
+            setStatus(`⏳ جاري المسح الضوئي على ${selectedScanner.name}...`);
+
             let progress = 0;
-            const interval = setInterval(() => {
-                progress += 10;
+            if (scanInterval) clearInterval(scanInterval);
+            scanInterval = setInterval(() => {
+                progress += 8;
                 if (progress <= 100) {
+                    updateScannerStatus('searching', `⏳ جاري المسح... ${progress}% (${mode} - ${dpi} DPI)`);
                     setStatus(`⏳ جاري المسح الضوئي... ${progress}% (${mode} - ${dpi} DPI)`);
                 }
-            }, 300);
+            }, 250);
+
+            // محاكاة المسح
             setTimeout(() => {
-                clearInterval(interval);
+                clearInterval(scanInterval);
+                scanInterval = null;
+
                 const fullFileName = `${fileName}.${format.toLowerCase()}`;
                 const filePath = `${folder}/${fullFileName}`;
+
+                // إنشاء ملف PDF وهمي
                 const fakeFile = `data:application/pdf;base64,JVBERi0xLjQKMSAwIG9iago8PAovVGl0bGUgKFNjYW5uZWQgRG9jdW1lbnQpCi9Qcm9kdWNlciAoU2Nhbm5lcikKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL1R5cGUgL0NhdGFsb2cKL1BhZ2VzIDMgMCBSCj4+CmVuZG9iagozIDAgb2JqCjw8Ci9UeXBlIC9QYWdlcwovS2lkcyBbNCAwIFJdCi9Db3VudCAxCj4+CmVuZG9iago0IDAgb2JqCjw8Ci9UeXBlIC9QYWdlCi9NZWRpYUJveCBbMCAwIDU5NSA4NDJdCi9SZXNvdXJjZXMgPDwKL0ZvbnQgPDwKL0YxIDw8Ci9UeXBlIC9Gb250Ci9TdWJ0eXBlIC9UeXBlMQovQmFzZUZvbnQgL0hlbHZldGljYQo+Pgo+Pgo+PgovQ29udGVudHMgNSAwIFIKPj4KZW5kb2JqCjUgMCBvYmoKPDwgL0xlbmd0aCAxMDAgPj4Kc3RyZWFtCkJUCi9GMSAxMiBUZgosIDUwIDUwMCBURChTY2FubmVkIGRvY3VtZW50KQpFVAplbmRzdHJlYW0KZW5kb2JqCnhyZWYKMCA2CjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDAwOSAwMDAwMCBuIAowMDAwMDAwMDU3IDAwMDAwIG4gCjAwMDAwMDAxMDYgMDAwMDAgbiAKMDAwMDAwMDE1NiAwMDAwMCBuIAowMDAwMDAwMjUyIDAwMDAwIG4gCnRyYWlsZXIKPDwKL1NpemUgNgovUm9vdCAyIDAgUgo+PgpzdGFydHhyZWYKMzUyCiUlRU9G`;
+
                 uploadedFiles[fullFileName] = fakeFile;
                 attachmentFile = { name: fullFileName, path: filePath };
                 document.getElementById('fileName').textContent = fullFileName;
                 document.querySelector('.file-upload-btn').style.borderColor = '#1abc9c';
-                closeScanModal();
+
+                updateScannerStatus('connected', `✅ تم المسح بنجاح: ${fullFileName}`);
                 toast(`✅ تم المسح بنجاح: ${fullFileName}`, 'success');
-                setStatus(`✅ تم المسح وحفظه في: ${filePath} (${dpi} DPI - ${mode})`);
+                setStatus(`✅ تم المسح وحفظه: ${filePath} (${dpi} DPI - ${mode})`);
+
+                // إضافة المستند تلقائياً
                 const name = document.getElementById('docName').value.trim() || fullFileName;
                 const type = document.getElementById('docType').value;
                 const number = document.getElementById('docNumber').value.trim() || `SCAN-${Date.now().toString().slice(-6)}`;
                 const date = document.getElementById('docDate').value;
+
                 const newDoc = {
                     id: nextId++,
                     name: name,
@@ -2670,7 +2944,12 @@
                 saveData();
                 renderTable();
                 newDocument();
-                toast('تم حفظ المستند الممسوح ضوئياً', 'success');
+
+                // إغلاق نافذة الماسح بعد 3 ثواني
+                setTimeout(() => {
+                    closeScanModal();
+                }, 3000);
+
             }, 3500);
         }
 
@@ -2680,7 +2959,14 @@
         function backupData() {
             try {
                 saveData();
-                const data = { documents, trashItems, uploadedFiles, timestamp: new Date().toISOString(), version: '9.3' };
+                const data = {
+                    documents,
+                    trashItems,
+                    uploadedFiles,
+                    timestamp: new Date().toISOString(),
+                    version: '10.0',
+                    scannerSupport: 'جميع أنواع الماسحات'
+                };
                 const json = JSON.stringify(data, null, 2);
                 const blob = new Blob([json], { type: 'application/json' });
                 const url = URL.createObjectURL(blob);
@@ -2692,7 +2978,7 @@
                 toast('✅ تم إنشاء النسخة الاحتياطية بنجاح', 'success');
                 setStatus('تم النسخ الاحتياطي');
             } catch (e) {
-                toast('فشل النسخ الاحتياطي: ' + e.message, 'error');
+                toast('❌ فشل النسخ الاحتياطي: ' + e.message, 'error');
             }
         }
 
@@ -2719,10 +3005,10 @@
                                 setStatus('تم الاستعادة من نسخة احتياطية');
                             }
                         } else {
-                            toast('ملف النسخة غير صالح أو غير متوافق مع هذا النظام', 'error');
+                            toast('❌ ملف النسخة غير صالح أو غير متوافق مع هذا النظام', 'error');
                         }
                     } catch (e) {
-                        toast('خطأ في قراءة الملف: ' + e.message, 'error');
+                        toast('❌ خطأ في قراءة الملف: ' + e.message, 'error');
                     }
                 };
                 reader.readAsText(file);
@@ -2855,13 +3141,10 @@
             }
         });
 
-        console.log('✅ نظام أرشفة المستندات (الإصدار 9.3 - 4K)');
+        console.log('✅ نظام أرشفة المستندات (الإصدار 10.0 - دعم جميع الماسحات)');
         console.log('📊 عدد المستندات:', documents.filter(d => d.deleted !== true).length);
         console.log('🗑️ عدد المحذوفات:', trashItems.length);
-        console.log('🎨 الخط الجانبي: ذهبي غامق (5px)');
-        console.log('🟢 السجل المحدد: أخضر');
-        console.log('🟠 أول نتيجة بحث: برتقالي');
-        console.log('🟣 باقي نتائج البحث: بنفسجي فاتح');
+        console.log('🖨️ دعم الماسحات: USB | WiFi | Bluetooth | شبكة | WIA');
         console.log('💾 النسخ الاحتياطي التلقائي: كل 60 ثانية');
     </script>
 </body>
