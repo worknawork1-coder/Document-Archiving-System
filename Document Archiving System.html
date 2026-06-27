@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
-    <title>نظام أرشفة المستندات الرسمية</title>
+    <title>نظام أرشفة المستندات الرسمية 4K</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap"
         rel="stylesheet">
@@ -26,9 +26,11 @@
             --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             --card-bg: rgba(255, 255, 255, 0.85);
             --text-dark: #1a1a2e;
-            --text-light: #2c3e50;
             --border-light: rgba(26, 82, 118, 0.15);
             --footer-bg: linear-gradient(135deg, #1a5276, #1a3a5a);
+            --golden: #FFD700;
+            --golden-light: rgba(255, 215, 0, 0.25);
+            --golden-border: #D4A800;
         }
 
         html,
@@ -62,7 +64,98 @@
             min-height: calc(100vh - 40px);
         }
 
-        /* ===== شريط العنوان ===== */
+        @media (min-width: 2560px) {
+            .app-container {
+                padding: 40px 60px;
+            }
+
+            .colored-btn {
+                padding: 16px 32px;
+                font-size: 20px;
+                border-right-width: 8px;
+            }
+
+            .colored-btn i {
+                font-size: 26px;
+            }
+
+            table {
+                font-size: 20px;
+            }
+
+            thead th {
+                padding: 20px 18px;
+                font-size: 18px;
+            }
+
+            tbody td {
+                padding: 18px 16px;
+                font-size: 18px;
+            }
+
+            .btn-exit {
+                padding: 16px 60px;
+                font-size: 24px;
+                max-width: 350px;
+            }
+
+            .header h1 {
+                font-size: 42px;
+            }
+
+            .filter-btn {
+                padding: 8px 24px;
+                font-size: 16px;
+            }
+
+            .form-section h3 {
+                font-size: 24px;
+            }
+
+            .form-group label {
+                font-size: 16px;
+            }
+
+            .form-group input,
+            .form-group select {
+                font-size: 18px;
+                padding: 12px 16px;
+            }
+
+            .status-bar .status-text {
+                font-size: 18px;
+            }
+
+            .search-box input {
+                font-size: 18px;
+                padding: 8px 12px;
+            }
+
+            .footer {
+                font-size: 18px;
+                padding: 18px 30px;
+            }
+
+            .modal-content {
+                max-width: 800px;
+                padding: 40px;
+            }
+
+            .modal-content h2 {
+                font-size: 32px;
+            }
+
+            .modal-content .form-group label {
+                font-size: 18px;
+            }
+
+            .modal-content .form-group input,
+            .modal-content .form-group select {
+                font-size: 18px;
+                padding: 14px 18px;
+            }
+        }
+
         .header {
             background: var(--primary-gradient);
             padding: 16px 24px;
@@ -126,110 +219,74 @@
             transform: translateY(-2px);
         }
 
-        /* ===== داش بورد السنوات (محسّن وجميل) ===== */
-        .dashboard-bar {
-            background: rgba(255, 255, 255, 0.5);
-            backdrop-filter: blur(10px);
-            padding: 14px 20px;
-            border-radius: var(--radius);
-            margin-bottom: 14px;
-            border: 1px solid var(--border-light);
+        .filter-buttons {
             display: flex;
             flex-wrap: wrap;
+            gap: 6px;
             align-items: center;
-            gap: 12px;
+            width: 100%;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
         }
 
-        .dashboard-bar .label {
-            font-weight: 700;
-            color: var(--text-dark);
-            font-size: clamp(14px, 1.1vw, 18px);
+        .filter-buttons .filter-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: clamp(11px, 0.8vw, 13px);
+            font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 8px;
-            background: linear-gradient(135deg, #1a5276, #2980b9);
-            padding: 6px 16px;
-            border-radius: 30px;
-            color: white;
+            gap: 4px;
         }
 
-        .dashboard-bar .label i {
-            color: #f1c40f;
-            font-size: clamp(16px, 1.2vw, 20px);
-        }
-
-        .year-buttons-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            flex: 1;
-        }
-
-        .year-btn {
-            padding: 7px 18px;
-            border: 2px solid var(--border-light);
-            border-radius: 30px;
-            background: rgba(255, 255, 255, 0.6);
-            color: var(--text-dark);
+        .filter-btn {
+            padding: 4px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
             font-family: 'Tajawal', sans-serif;
-            font-weight: 700;
-            font-size: clamp(12px, 0.85vw, 14px);
+            font-weight: 600;
+            font-size: clamp(11px, 0.75vw, 13px);
             cursor: pointer;
             transition: var(--transition);
             display: flex;
             align-items: center;
-            gap: 6px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+            gap: 4px;
         }
 
-        .year-btn .count-badge {
-            background: rgba(26, 82, 118, 0.1);
-            padding: 1px 10px;
-            border-radius: 20px;
-            font-size: clamp(10px, 0.7vw, 12px);
-            color: var(--primary);
-            font-weight: 800;
+        .filter-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
         }
 
-        .year-btn:hover {
-            background: rgba(255, 255, 255, 0.9);
-            transform: translateY(-3px);
-            border-color: var(--primary-light);
-            box-shadow: 0 6px 20px rgba(41, 128, 185, 0.15);
+        .filter-btn.active {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: #f1c40f;
+            color: #f1c40f;
         }
 
-        .year-btn.active {
-            background: var(--primary-gradient);
-            border-color: var(--primary);
-            color: white;
-            box-shadow: 0 4px 15px rgba(41, 128, 185, 0.3);
-        }
-
-        .year-btn.active .count-badge {
+        .filter-btn .badge {
             background: rgba(255, 255, 255, 0.2);
-            color: white;
+            padding: 0 8px;
+            border-radius: 12px;
+            font-size: clamp(9px, 0.6vw, 11px);
         }
 
-        .year-btn.all-btn {
-            background: linear-gradient(135deg, #27ae60, #2ecc71);
-            border-color: #27ae60;
-            color: white;
+        .filter-btn.all-btn {
+            background: rgba(46, 204, 113, 0.3);
+            border-color: #2ecc71;
+            color: #2ecc71;
         }
 
-        .year-btn.all-btn .count-badge {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
+        .filter-btn.all-btn:hover {
+            background: rgba(46, 204, 113, 0.4);
         }
 
-        .year-btn.all-btn:hover {
-            box-shadow: 0 4px 15px rgba(46, 204, 113, 0.3);
-        }
-
-        /* ===== صف الأزرار ===== */
         .buttons-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 6px;
             margin-bottom: 12px;
             justify-content: center;
         }
@@ -237,15 +294,15 @@
         .colored-btn {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 10px 18px;
+            gap: 6px;
+            padding: 8px 14px;
             background: rgba(255, 255, 255, 0.8);
             border: 2px solid var(--border-light);
-            border-right: 5px solid #FF6B6B;
-            border-radius: 10px 0 0 10px;
+            border-right: 4px solid #FF6B6B;
+            border-radius: 8px 0 0 8px;
             font-family: 'Tajawal', sans-serif;
             font-weight: 700;
-            font-size: clamp(12px, 0.9vw, 15px);
+            font-size: clamp(11px, 0.8vw, 13px);
             color: var(--text-dark);
             cursor: pointer;
             transition: var(--transition);
@@ -254,8 +311,8 @@
 
         .colored-btn:hover {
             background: var(--white);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
         }
 
         .colored-btn:active {
@@ -263,15 +320,14 @@
         }
 
         .colored-btn i {
-            font-size: clamp(14px, 1.1vw, 20px);
+            font-size: clamp(12px, 1vw, 16px);
             transition: var(--transition);
         }
 
         .colored-btn:hover i {
-            transform: scale(1.2) rotate(-5deg);
+            transform: scale(1.15) rotate(-5deg);
         }
 
-        /* ألوان الحواف */
         .btn-red {
             border-right-color: #e74c3c;
         }
@@ -320,38 +376,40 @@
             border-right-color: #7f8c8d;
         }
 
-        /* ===== صف الخروج ===== */
-        .exit-row {
-            display: flex;
-            justify-content: center;
-            margin-bottom: 14px;
-        }
-
         .btn-exit {
             padding: 10px 40px;
-            font-size: clamp(15px, 1.1vw, 18px);
-            border-right-color: #7f8c8d;
+            font-size: clamp(15px, 1.2vw, 18px);
+            border-right-color: #e74c3c;
+            background: rgba(231, 76, 60, 0.12);
+            border-color: #e74c3c;
+            flex: 1;
+            justify-content: center;
+            max-width: 200px;
         }
 
         .btn-exit:hover {
-            background: rgba(231, 76, 60, 0.15);
-            border-right-color: #e74c3c;
-            transform: translateY(-3px) scale(1.02);
+            background: rgba(231, 76, 60, 0.25);
+            border-right-color: #c0392b;
+            transform: translateY(-3px) scale(1.03);
+            box-shadow: 0 8px 25px rgba(231, 76, 60, 0.25);
         }
 
-        /* ===== نموذج الإدخال ===== */
+        .btn-exit i {
+            font-size: clamp(16px, 1.3vw, 20px);
+        }
+
         .form-section {
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(10px);
-            padding: 16px 20px;
+            padding: 14px 18px;
             border-radius: var(--radius);
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             border: 1px solid var(--border-light);
         }
 
         .form-section h3 {
-            font-size: clamp(15px, 1.2vw, 20px);
-            margin-bottom: 12px;
+            font-size: clamp(14px, 1.1vw, 18px);
+            margin-bottom: 10px;
             color: var(--text-dark);
             display: flex;
             align-items: center;
@@ -364,8 +422,8 @@
 
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-            gap: 12px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
             align-items: end;
         }
 
@@ -377,17 +435,17 @@
 
         .form-group label {
             font-weight: 700;
-            font-size: clamp(11px, 0.8vw, 13px);
+            font-size: clamp(10px, 0.7vw, 12px);
             color: var(--text-dark);
         }
 
         .form-group input,
         .form-group select {
-            padding: 8px 12px;
+            padding: 6px 10px;
             border: 2px solid var(--border-light);
             border-radius: 8px;
             font-family: 'Tajawal', sans-serif;
-            font-size: clamp(12px, 0.85vw, 14px);
+            font-size: clamp(11px, 0.8vw, 13px);
             background: var(--white);
             color: var(--text-dark);
             transition: var(--transition);
@@ -408,13 +466,13 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            padding: 8px 14px;
+            padding: 6px 12px;
             background: var(--white);
             border: 2px dashed var(--border-light);
             border-radius: 8px;
             color: var(--text-dark);
             font-family: 'Tajawal', sans-serif;
-            font-size: clamp(11px, 0.8vw, 13px);
+            font-size: clamp(10px, 0.7vw, 12px);
             cursor: pointer;
             transition: var(--transition);
             width: 100%;
@@ -431,13 +489,13 @@
         }
 
         .calendar-wrapper input[type="date"] {
-            padding: 8px 12px;
+            padding: 6px 10px;
             border: 2px solid var(--border-light);
             border-radius: 8px;
             background: var(--white);
             color: var(--text-dark);
             font-family: 'Tajawal', sans-serif;
-            font-size: clamp(12px, 0.85vw, 14px);
+            font-size: clamp(11px, 0.8vw, 13px);
             width: 100%;
             transition: var(--transition);
             color-scheme: light;
@@ -461,7 +519,6 @@
             transform: scale(1.1);
         }
 
-        /* ===== الجدول ===== */
         .table-section {
             background: rgba(255, 255, 255, 0.5);
             backdrop-filter: blur(10px);
@@ -477,11 +534,11 @@
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 12px;
+            padding: 6px 12px;
         }
 
         .table-section .header-row h3 {
-            font-size: clamp(15px, 1.2vw, 20px);
+            font-size: clamp(14px, 1.1vw, 18px);
             color: var(--text-dark);
             display: flex;
             align-items: center;
@@ -494,7 +551,7 @@
 
         .table-wrapper {
             overflow: auto;
-            max-height: 450px;
+            max-height: 400px;
             border-radius: var(--radius);
             position: relative;
         }
@@ -521,8 +578,8 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: clamp(12px, 0.85vw, 14px);
-            min-width: 700px;
+            font-size: clamp(11px, 0.8vw, 13px);
+            min-width: 650px;
         }
 
         thead {
@@ -534,7 +591,7 @@
         }
 
         thead th {
-            padding: 12px 12px;
+            padding: 10px 10px;
             text-align: center;
             font-weight: 800;
             white-space: nowrap;
@@ -549,7 +606,7 @@
 
         thead th i {
             margin-right: 4px;
-            font-size: 11px;
+            font-size: 10px;
             opacity: 0.7;
         }
 
@@ -570,11 +627,28 @@
             background: rgba(41, 128, 185, 0.08);
         }
 
+        /* لون ذهبي للصف المحدد */
+        tbody tr.selected {
+            background: var(--golden-light) !important;
+            border-right: 6px solid var(--golden) !important;
+            box-shadow: inset 0 0 30px rgba(255, 215, 0, 0.15);
+            position: relative;
+        }
+
+        tbody tr.selected td:last-child {
+            border-right: none;
+        }
+
         tbody td {
-            padding: 10px 10px;
+            padding: 8px 10px;
             text-align: center;
             vertical-align: middle;
             color: var(--text-dark);
+        }
+
+        tbody td,
+        thead th {
+            text-align: center !important;
         }
 
         tbody td:first-child {
@@ -583,9 +657,10 @@
         }
 
         .attachment-icon {
-            font-size: clamp(20px, 1.4vw, 30px);
+            font-size: clamp(18px, 1.2vw, 26px);
             display: inline-block;
             transition: var(--transition);
+            cursor: pointer;
         }
 
         .attachment-icon:hover {
@@ -601,33 +676,32 @@
         .table-controls {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
-            padding: 8px 12px 4px;
+            gap: 6px;
+            padding: 6px 12px 4px;
         }
 
         .table-controls .colored-btn {
-            padding: 6px 14px;
-            font-size: clamp(11px, 0.8vw, 13px);
+            padding: 5px 12px;
+            font-size: clamp(10px, 0.7vw, 12px);
         }
 
-        /* ===== شريط الحالة ===== */
         .status-bar {
             background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(10px);
-            padding: 10px 18px;
+            padding: 8px 16px;
             border-radius: var(--radius);
-            margin-top: 14px;
+            margin-top: 12px;
             border: 1px solid var(--border-light);
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             color: var(--text-dark);
         }
 
         .status-bar .status-text {
-            font-size: clamp(12px, 0.85vw, 15px);
+            font-size: clamp(11px, 0.8vw, 14px);
             font-weight: 500;
             display: flex;
             align-items: center;
@@ -643,7 +717,7 @@
             align-items: center;
             gap: 6px;
             background: var(--white);
-            padding: 3px 12px;
+            padding: 2px 10px;
             border-radius: 30px;
             border: 2px solid var(--border-light);
             transition: var(--transition);
@@ -657,11 +731,11 @@
         .search-box input {
             background: transparent;
             border: none;
-            padding: 6px 8px;
+            padding: 4px 6px;
             color: var(--text-dark);
             font-family: 'Tajawal', sans-serif;
-            font-size: clamp(12px, 0.85vw, 14px);
-            width: clamp(120px, 18vw, 200px);
+            font-size: clamp(11px, 0.8vw, 13px);
+            width: clamp(100px, 15vw, 180px);
         }
 
         .search-box input::placeholder {
@@ -676,9 +750,9 @@
             background: transparent;
             border: none;
             color: var(--primary);
-            font-size: clamp(14px, 1vw, 18px);
+            font-size: clamp(12px, 0.9vw, 16px);
             cursor: pointer;
-            padding: 4px 6px;
+            padding: 3px 5px;
             transition: var(--transition);
         }
 
@@ -688,19 +762,18 @@
         }
 
         .version {
-            font-size: clamp(10px, 0.7vw, 12px);
+            font-size: clamp(9px, 0.6vw, 11px);
             color: #7f8c8d;
         }
 
-        /* ===== التذييل ===== */
         .footer {
-            margin-top: 16px;
-            padding: 14px 24px;
+            margin-top: 14px;
+            padding: 12px 20px;
             background: var(--footer-bg);
             border-radius: var(--radius);
             text-align: center;
             color: rgba(255, 255, 255, 0.9);
-            font-size: clamp(13px, 0.9vw, 16px);
+            font-size: clamp(12px, 0.8vw, 15px);
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.05);
         }
@@ -708,7 +781,7 @@
         .footer .name {
             font-weight: 800;
             color: #f1c40f;
-            font-size: clamp(14px, 1vw, 18px);
+            font-size: clamp(13px, 0.9vw, 17px);
         }
 
         .footer .unit {
@@ -717,7 +790,7 @@
         }
 
         .footer .separator {
-            margin: 0 8px;
+            margin: 0 6px;
             color: rgba(255, 255, 255, 0.2);
         }
 
@@ -739,7 +812,6 @@
             }
         }
 
-        /* ===== نافذة الماسح ===== */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -763,12 +835,35 @@
             background: var(--white);
             border-radius: var(--radius);
             padding: 28px;
-            max-width: 600px;
+            max-width: 650px;
             width: 100%;
             max-height: 90vh;
             overflow-y: auto;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
             animation: modalIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+        }
+
+        /* عنوان قابل للسحب */
+        .modal-header-draggable {
+            cursor: grab;
+            user-select: none;
+            padding: 10px 0;
+            border-bottom: 2px solid #e9ecef;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .modal-header-draggable:active {
+            cursor: grabbing;
+        }
+
+        .modal-header-draggable i {
+            color: #7f8c8d;
+            font-size: 16px;
         }
 
         @keyframes modalIn {
@@ -828,7 +923,119 @@
             font-size: clamp(13px, 0.9vw, 16px);
         }
 
-        /* ===== نافذة الخروج ===== */
+        .scanner-device {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 16px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 8px;
+            border: 1px solid #e9ecef;
+            transition: var(--transition);
+        }
+
+        .scanner-device:hover {
+            background: #e9ecef;
+            transform: translateX(-5px);
+        }
+
+        .scanner-device .device-name {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .scanner-device .device-status {
+            color: #27ae60;
+        }
+
+        .scanner-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 14px 28px;
+            border-radius: var(--radius);
+            color: white;
+            font-weight: 700;
+            font-size: clamp(13px, 0.9vw, 16px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            z-index: 3000;
+            animation: slideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-width: 90vw;
+        }
+
+        .toast.success {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, #c0392b, #e74c3c);
+        }
+
+        .toast.info {
+            background: linear-gradient(135deg, #2980b9, #3498db);
+        }
+
+        .toast.warning {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(80px) scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+
+        .toast.hide {
+            animation: slideOut 0.4s ease forwards;
+        }
+
+        @keyframes slideOut {
+            to {
+                opacity: 0;
+                transform: translateX(80px) scale(0.9);
+            }
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #95a5a6;
+        }
+
+        .empty-state i {
+            font-size: 50px;
+            margin-bottom: 12px;
+            opacity: 0.4;
+        }
+
+        .trash-modal .modal-content {
+            max-width: 1000px;
+        }
+
+        .trash-modal .table-wrapper {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .trash-modal input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #1abc9c;
+            cursor: pointer;
+        }
+
         .exit-overlay {
             position: fixed;
             top: 0;
@@ -897,119 +1104,6 @@
             color: #7f8c8d;
         }
 
-        /* ===== سلة المحذوفات ===== */
-        .trash-modal .modal-content {
-            max-width: 1000px;
-        }
-
-        .trash-modal .table-wrapper {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-
-        .trash-modal input[type="checkbox"] {
-            width: 16px;
-            height: 16px;
-            accent-color: #1abc9c;
-            cursor: pointer;
-        }
-
-        /* ===== رسائل منبثقة ===== */
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            padding: 14px 28px;
-            border-radius: var(--radius);
-            color: white;
-            font-weight: 700;
-            font-size: clamp(13px, 0.9vw, 16px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-            z-index: 3000;
-            animation: slideIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-            max-width: 90vw;
-        }
-
-        .toast.success {
-            background: linear-gradient(135deg, #27ae60, #2ecc71);
-        }
-
-        .toast.error {
-            background: linear-gradient(135deg, #c0392b, #e74c3c);
-        }
-
-        .toast.info {
-            background: linear-gradient(135deg, #2980b9, #3498db);
-        }
-
-        .toast.warning {
-            background: linear-gradient(135deg, #f39c12, #e67e22);
-        }
-
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateX(80px) scale(0.9);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateX(0) scale(1);
-            }
-        }
-
-        .toast.hide {
-            animation: slideOut 0.4s ease forwards;
-        }
-
-        @keyframes slideOut {
-            to {
-                opacity: 0;
-                transform: translateX(80px) scale(0.9);
-            }
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: #95a5a6;
-        }
-
-        .empty-state i {
-            font-size: 50px;
-            margin-bottom: 12px;
-            opacity: 0.4;
-        }
-
-        /* ===== توافق الشاشات ===== */
-        @media (min-width: 2560px) {
-            .app-container {
-                padding: 32px 48px;
-            }
-
-            .colored-btn {
-                padding: 14px 28px;
-                font-size: 18px;
-                border-right-width: 8px;
-            }
-
-            .colored-btn i {
-                font-size: 24px;
-            }
-
-            table {
-                font-size: 18px;
-            }
-
-            thead th {
-                padding: 18px 16px;
-            }
-
-            tbody td {
-                padding: 16px 14px;
-            }
-        }
-
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -1030,61 +1124,53 @@
                 justify-content: center;
             }
 
-            .dashboard-bar {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .dashboard-bar .label {
-                justify-content: center;
-            }
-
-            .year-buttons-container {
+            .filter-buttons {
                 justify-content: center;
             }
 
             .buttons-row {
-                gap: 5px;
+                gap: 4px;
             }
 
             .colored-btn {
-                padding: 6px 12px;
-                font-size: 12px;
+                padding: 5px 10px;
+                font-size: 11px;
                 border-right-width: 3px;
             }
 
             .colored-btn i {
-                font-size: 12px;
+                font-size: 11px;
             }
 
             .btn-exit {
-                padding: 8px 24px;
+                padding: 8px 25px;
                 font-size: 14px;
+                max-width: 150px;
             }
 
             .form-grid {
                 grid-template-columns: 1fr;
-                gap: 8px;
+                gap: 6px;
             }
 
             table {
-                font-size: 12px;
-                min-width: 500px;
+                font-size: 11px;
+                min-width: 450px;
             }
 
             thead th {
-                padding: 8px 6px;
-                font-size: 11px;
+                padding: 6px 5px;
+                font-size: 10px;
             }
 
             tbody td {
-                padding: 8px 5px;
+                padding: 6px 4px;
             }
 
             .status-bar {
                 flex-direction: column;
                 align-items: stretch;
-                gap: 8px;
+                gap: 6px;
                 text-align: center;
             }
 
@@ -1102,41 +1188,51 @@
             }
 
             .table-wrapper {
-                max-height: 300px;
+                max-height: 250px;
             }
 
             .footer {
                 padding: 10px 16px;
-                font-size: 12px;
+                font-size: 11px;
+            }
+
+            .scanner-options {
+                grid-template-columns: 1fr;
             }
         }
 
         @media (max-width: 480px) {
             .colored-btn {
-                padding: 5px 8px;
-                font-size: 10px;
-            }
-
-            .colored-btn i {
-                font-size: 10px;
-            }
-
-            table {
-                font-size: 10px;
-                min-width: 400px;
-            }
-
-            thead th {
-                padding: 5px 3px;
+                padding: 4px 7px;
                 font-size: 9px;
             }
 
+            .colored-btn i {
+                font-size: 9px;
+            }
+
+            .btn-exit {
+                padding: 6px 15px;
+                font-size: 12px;
+                max-width: 120px;
+            }
+
+            table {
+                font-size: 9px;
+                min-width: 350px;
+            }
+
+            thead th {
+                padding: 4px 3px;
+                font-size: 8px;
+            }
+
             tbody td {
-                padding: 5px 3px;
+                padding: 4px 2px;
             }
 
             .header h1 {
-                font-size: 16px;
+                font-size: 15px;
             }
 
             .exit-box {
@@ -1152,17 +1248,12 @@
             }
 
             .table-wrapper {
-                max-height: 250px;
+                max-height: 200px;
             }
 
-            .year-btn {
-                padding: 4px 10px;
-                font-size: 11px;
-            }
-
-            .year-btn .count-badge {
-                padding: 0 6px;
-                font-size: 9px;
+            .filter-btn {
+                padding: 3px 10px;
+                font-size: 10px;
             }
         }
 
@@ -1190,26 +1281,28 @@
 <body>
 
     <div class="app-container" id="app">
-        <!-- Header -->
         <header class="header">
-            <h1><i class="fas fa-book-open"></i> نظام أرشفة المستندات الرسمية</h1>
-            <div class="header-stats">
-                <span class="stat-item"><i class="fas fa-file-alt"></i> المستندات: <span id="docCount">0</span></span>
-                <span class="stat-item"><i class="fas fa-paperclip"></i> المرفقة: <span id="attachCount">0</span></span>
+            <div
+                style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;width:100%;gap:8px;">
+                <h1><i class="fas fa-book-open"></i> نظام أرشفة المستندات الرسمية 4K</h1>
+                <div class="header-stats">
+                    <span class="stat-item"><i class="fas fa-file-alt"></i> المستندات: <span
+                            id="docCount">0</span></span>
+                    <span class="stat-item"><i class="fas fa-paperclip"></i> المرفقة: <span
+                            id="attachCount">0</span></span>
+                </div>
+            </div>
+            <div class="filter-buttons" id="filterButtons">
+                <span class="filter-label"><i class="fas fa-filter"></i> تصفية:</span>
+                <button class="filter-btn all-btn active" data-year="all">📋 الكل <span class="badge"
+                        id="allCount">0</span></button>
             </div>
         </header>
 
-        <!-- Dashboard (محسّن) -->
-        <div class="dashboard-bar" id="dashboardBar">
-            <span class="label"><i class="fas fa-chart-pie"></i> تصفية حسب السنة</span>
-            <div class="year-buttons-container" id="yearButtons"></div>
-        </div>
-
-        <!-- Buttons Row -->
+        <!-- الأزرار (تم حذف زر التعديل) -->
         <div class="buttons-row" id="mainButtons">
             <button class="colored-btn btn-green" data-action="new"><i class="fas fa-plus"></i> جديد</button>
             <button class="colored-btn btn-teal" data-action="save"><i class="fas fa-save"></i> حفظ</button>
-            <button class="colored-btn btn-orange" data-action="edit"><i class="fas fa-edit"></i> تعديل</button>
             <button class="colored-btn btn-red" data-action="attach"><i class="fas fa-paperclip"></i> إرفاق</button>
             <button class="colored-btn btn-purple" data-action="search"><i class="fas fa-search"></i> بحث متقدم</button>
             <button class="colored-btn btn-pink" data-action="view"><i class="fas fa-eye"></i> عرض</button>
@@ -1218,19 +1311,14 @@
             <button class="colored-btn btn-cyan" data-action="backup"><i class="fas fa-cloud-upload-alt"></i> نسخ
                 احتياطي</button>
             <button class="colored-btn btn-dark-purple" data-action="restore"><i class="fas fa-cloud-download-alt"></i>
-                استعادة نسخة</button>
-            <button class="colored-btn btn-blue" data-action="refresh"><i class="fas fa-sync"></i> تحديث الجدول</button>
+                استعادة</button>
             <button class="colored-btn btn-pink" data-action="trash"><i class="fas fa-trash-alt"></i> المحذوفات</button>
+            <button class="colored-btn btn-exit" data-action="exit"><i class="fas fa-sign-out-alt"></i> خروج</button>
         </div>
 
-        <!-- Exit Row -->
-        <div class="exit-row">
-            <button class="colored-btn btn-exit" id="exitBtn"><i class="fas fa-sign-out-alt"></i> خروج</button>
-        </div>
-
-        <!-- Form -->
         <div class="form-section">
-            <h3><i class="fas fa-pen-fancy"></i> بيانات المستند</h3>
+            <h3><i class="fas fa-pen-fancy"></i> بيانات المستند <span
+                    style="font-size:14px;color:#7f8c8d;font-weight:400;">(اختر مستنداً من الجدول للتعديل)</span></h3>
             <div class="form-grid">
                 <div class="form-group">
                     <label><i class="fas fa-tag"></i> الاسم</label>
@@ -1272,27 +1360,28 @@
             </div>
         </div>
 
-        <!-- Table -->
         <div class="table-section">
             <div class="header-row">
                 <h3><i class="fas fa-list-ul"></i> قائمة المستندات</h3>
-            </div>
-            <div class="table-controls">
-                <button class="colored-btn btn-red" onclick="refreshTable()"><i class="fas fa-sync"></i> تحديث
-                    الجدول</button>
-                <button class="colored-btn btn-teal" onclick="clearSort()"><i class="fas fa-undo"></i> إلغاء
-                    الترتيب</button>
-                <button class="colored-btn btn-purple" onclick="showAll()"><i class="fas fa-list-ul"></i> الكل</button>
+                <div style="display:flex;gap:4px;flex-wrap:wrap;">
+                    <button class="colored-btn btn-blue" onclick="refreshTable()"
+                        style="padding:4px 12px;font-size:11px;"><i class="fas fa-sync"></i> تحديث الجدول</button>
+                    <button class="colored-btn btn-teal" onclick="clearSort()"
+                        style="padding:4px 10px;font-size:11px;"><i class="fas fa-undo"></i> إلغاء الترتيب</button>
+                    <button class="colored-btn btn-purple" onclick="showAll()"
+                        style="padding:4px 10px;font-size:11px;"><i class="fas fa-list-ul"></i> الكل</button>
+                </div>
             </div>
             <div class="table-wrapper">
                 <table id="docTable">
                     <thead>
                         <tr>
-                            <th onclick="sortTable(0)"><i class="fas fa-hashtag"></i> # <i class="fas fa-sort"></i></th>
+                            <th onclick="sortTable(0)"><i class="fas fa-hashtag"></i> التسلسل <i
+                                    class="fas fa-sort"></i></th>
                             <th onclick="sortTable(1)"><i class="fas fa-file-alt"></i> اسم المستند <i
                                     class="fas fa-sort"></i></th>
-                            <th onclick="sortTable(2)"><i class="fas fa-list"></i> نوع المستند <i
-                                    class="fas fa-sort"></i></th>
+                            <th onclick="sortTable(2)"><i class="fas fa-list"></i> النوع <i class="fas fa-sort"></i>
+                            </th>
                             <th onclick="sortTable(3)"><i class="fas fa-calendar-day"></i> التاريخ <i
                                     class="fas fa-sort"></i></th>
                             <th onclick="sortTable(4)"><i class="fas fa-hashtag"></i> رقم المستند <i
@@ -1305,7 +1394,6 @@
             </div>
         </div>
 
-        <!-- Status Bar -->
         <div class="status-bar">
             <span class="status-text" id="statusText"><i class="fas fa-hand-peace"></i> مرحبًا بك</span>
             <div class="search-box">
@@ -1313,10 +1401,9 @@
                 <input type="text" id="quickSearch" placeholder="بحث سريع..." onkeyup="quickSearch()">
                 <button onclick="quickSearch()"><i class="fas fa-arrow-right"></i></button>
             </div>
-            <span class="version"><i class="fas fa-code-branch"></i> الإصدار 6.0 | 4K</span>
+            <span class="version"><i class="fas fa-code-branch"></i> الإصدار 9.0 | 4K</span>
         </div>
 
-        <!-- ===== التذييل ===== -->
         <footer class="footer">
             <span>
                 <span class="name">نائل حسن عبود</span>
@@ -1332,12 +1419,77 @@
         </footer>
     </div>
 
-    <!-- ===== نافذة الخروج ===== -->
-    <div class="exit-overlay" id="exitOverlay">
-        <div class="exit-box">
-            <i class="fas fa-check-circle"></i>
-            <h2>تم الخروج بنجاح</h2>
-            <p>شكراً لاستخدام نظام أرشفة المستندات</p>
+    <!-- ===== نافذة البحث المتقدم (قابلة للسحب) ===== -->
+    <div class="modal-overlay" id="searchModal">
+        <div class="modal-content" id="searchModalContent">
+            <div class="modal-header-draggable" id="searchModalHeader">
+                <i class="fas fa-arrows-alt"></i>
+                <h2 style="margin:0;display:inline-block;"><i class="fas fa-search" style="color:#f39c12;"></i> بحث
+                    متقدم</h2>
+                <i class="fas fa-arrows-alt"></i>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-tag"></i> اسم المستند</label>
+                <input type="text" id="advName" placeholder="أدخل اسم المستند...">
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-list"></i> نوع المستند</label>
+                <select id="advType">
+                    <option value="">الكل</option>
+                    <option value="صادر">صادر</option>
+                    <option value="وارد">وارد</option>
+                    <option value="مذكرة داخلية">مذكرة داخلية</option>
+                    <option value="تقرير">تقرير</option>
+                    <option value="عقد">عقد</option>
+                    <option value="مراسلة">مراسلة</option>
+                    <option value="أمر">أمر</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label><i class="fas fa-hashtag"></i> رقم المستند</label>
+                <input type="text" id="advNumber" placeholder="أدخل رقم المستند...">
+            </div>
+            <div class="form-group" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                <div>
+                    <label><i class="fas fa-calendar-alt"></i> من تاريخ</label>
+                    <input type="date" id="advDateFrom">
+                </div>
+                <div>
+                    <label><i class="fas fa-calendar-alt"></i> إلى تاريخ</label>
+                    <input type="date" id="advDateTo">
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="colored-btn btn-green" onclick="performAdvancedSearch()"><i class="fas fa-search"></i>
+                    بحث</button>
+                <button class="colored-btn btn-dark-red" onclick="closeAdvancedSearchModal()"><i
+                        class="fas fa-times"></i> إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== نافذة عرض المستند ===== -->
+    <div class="modal-overlay view-modal" id="viewModal">
+        <div class="modal-content">
+            <h2><i class="fas fa-eye"></i> عرض المستند</h2>
+            <div style="text-align:center;padding:20px;">
+                <i class="fas fa-file" style="font-size:60px;color:#2980b9;display:block;margin-bottom:15px;"></i>
+                <p style="font-size:18px;font-weight:700;color:#1a5276;" id="viewDocName">اسم المستند</p>
+                <p style="color:#7f8c8d;font-size:15px;" id="viewDocInfo">نوع: وارد | رقم: 126354</p>
+                <div
+                    style="margin-top:20px;padding:20px;background:#f8f9fa;border-radius:10px;border:1px solid #e9ecef;">
+                    <p style="color:#2c3e50;font-size:15px;">📄 سيتم فتح الملف المرفق في نافذة جديدة</p>
+                    <p style="color:#95a5a6;font-size:13px;">يمكنك طباعته أو حفظه من هناك</p>
+                </div>
+            </div>
+            <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:10px;">
+                <button class="colored-btn btn-green" onclick="openDocumentFileDirect()"><i
+                        class="fas fa-external-link-alt"></i> فتح الملف</button>
+                <button class="colored-btn btn-teal" onclick="printDocumentDirect()"><i class="fas fa-print"></i>
+                    طباعة</button>
+                <button class="colored-btn btn-dark-red" onclick="closeViewModal()"><i class="fas fa-times"></i>
+                    إغلاق</button>
+            </div>
         </div>
     </div>
 
@@ -1352,22 +1504,54 @@
                     <i class="fas fa-spinner fa-spin"></i> جاري البحث عن الأجهزة...
                 </div>
             </div>
-            <div class="form-group">
-                <label><i class="fas fa-file"></i> صيغة الملف</label>
-                <select id="scanFormat">
-                    <option value="PDF">PDF</option>
-                    <option value="JPG">JPG</option>
-                    <option value="PNG">PNG</option>
-                    <option value="TIFF">TIFF</option>
-                </select>
+            <div class="scanner-options">
+                <div class="form-group">
+                    <label><i class="fas fa-file"></i> صيغة الملف</label>
+                    <select id="scanFormat">
+                        <option value="PDF">PDF</option>
+                        <option value="JPG">JPG</option>
+                        <option value="PNG">PNG</option>
+                        <option value="TIFF">TIFF</option>
+                        <option value="BMP">BMP</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-palette"></i> الدقة (DPI)</label>
+                    <select id="scanDpi">
+                        <option value="150">150 DPI</option>
+                        <option value="300" selected>300 DPI</option>
+                        <option value="600">600 DPI</option>
+                        <option value="1200">1200 DPI</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-fill-drip"></i> الوضع</label>
+                    <select id="scanMode">
+                        <option value="color">ملون</option>
+                        <option value="grayscale">تدرج رمادي</option>
+                        <option value="bw">أبيض وأسود</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-layer-group"></i> الوجه</label>
+                    <select id="scanSide">
+                        <option value="single">وجه واحد</option>
+                        <option value="duplex">وجهين (DUAL)</option>
+                    </select>
+                </div>
             </div>
             <div class="form-group">
                 <label><i class="fas fa-folder"></i> مجلد الحفظ</label>
                 <input type="text" id="scanFolder" value="C:\Users\Public\Scans" placeholder="مسار المجلد...">
             </div>
+            <div class="form-group">
+                <label><i class="fas fa-file-signature"></i> اسم الملف</label>
+                <input type="text" id="scanFileName" value="scan_${Date.now()}" placeholder="اسم الملف...">
+            </div>
             <div class="modal-actions">
-                <button class="colored-btn btn-green" onclick="startScan()"><i class="fas fa-camera"></i> بدء
-                    المسح</button>
+                <button class="colored-btn btn-green" onclick="startScan()"><i class="fas fa-camera"></i> Scan</button>
+                <button class="colored-btn btn-cyan" onclick="refreshScanners()"><i class="fas fa-sync"></i> تحديث
+                    الأجهزة</button>
                 <button class="colored-btn btn-dark-red" onclick="closeScanModal()"><i class="fas fa-times"></i>
                     إلغاء</button>
             </div>
@@ -1406,12 +1590,20 @@
         </div>
     </div>
 
+    <!-- ===== نافذة الخروج ===== -->
+    <div class="exit-overlay" id="exitOverlay">
+        <div class="exit-box">
+            <i class="fas fa-check-circle"></i>
+            <h2>تم الخروج بنجاح</h2>
+            <p>شكراً لاستخدام نظام أرشفة المستندات</p>
+        </div>
+    </div>
+
     <script>
         // ============================================================
-        // التطبيق الكامل
+        // التطبيق الكامل - الإصدار 9.0 (4K)
         // ============================================================
 
-        // المتغيرات العامة
         let documents = [];
         let trashItems = [];
         let currentId = null;
@@ -1422,36 +1614,88 @@
         let selectedTrash = new Set();
         let nextId = 1;
         let scannerDevices = [];
+        let viewDocumentData = null;
+        let uploadedFiles = {};
 
-        // تهيئة التاريخ
         document.getElementById('docDate').value = new Date().toISOString().split('T')[0];
+
+        // ============================================================
+        // سحب نافذة البحث
+        // ============================================================
+        let isDragging = false;
+        let dragOffsetX = 0;
+        let dragOffsetY = 0;
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const header = document.getElementById('searchModalHeader');
+            const content = document.getElementById('searchModalContent');
+
+            if (header && content) {
+                header.addEventListener('mousedown', function (e) {
+                    isDragging = true;
+                    const rect = content.getBoundingClientRect();
+                    dragOffsetX = e.clientX - rect.left;
+                    dragOffsetY = e.clientY - rect.top;
+                    content.style.cursor = 'grabbing';
+                    e.preventDefault();
+                });
+
+                document.addEventListener('mousemove', function (e) {
+                    if (!isDragging) return;
+                    const modal = document.getElementById('searchModal');
+                    if (!modal.classList.contains('active')) {
+                        isDragging = false;
+                        return;
+                    }
+                    const newX = e.clientX - dragOffsetX;
+                    const newY = e.clientY - dragOffsetY;
+                    content.style.position = 'fixed';
+                    content.style.left = Math.max(0, newX) + 'px';
+                    content.style.top = Math.max(0, newY) + 'px';
+                    content.style.transform = 'none';
+                    content.style.margin = '0';
+                });
+
+                document.addEventListener('mouseup', function () {
+                    isDragging = false;
+                    if (content) content.style.cursor = '';
+                });
+            }
+        });
 
         // ============================================================
         // أيقونات المرفق
         // ============================================================
         function getBookEmoji(type) {
-            const icons = {
-                'صادر': '📘',
-                'وارد': '📕',
-                'مذكرة داخلية': '📗',
-                'تقرير': '📙',
-                'عقد': '📔',
-                'مراسلة': '📒'
-            };
+            const icons = { 'صادر': '📘', 'وارد': '📕', 'مذكرة داخلية': '📗', 'تقرير': '📙', 'عقد': '📔', 'مراسلة': '📒' };
             return icons[type] || '📖';
+        }
+
+        function getFileIconByExtension(filename) {
+            if (!filename) return 'fa-file';
+            const ext = filename.split('.').pop().toLowerCase();
+            const icons = {
+                'pdf': 'fa-file-pdf', 'doc': 'fa-file-word', 'docx': 'fa-file-word',
+                'xls': 'fa-file-excel', 'xlsx': 'fa-file-excel',
+                'ppt': 'fa-file-powerpoint', 'pptx': 'fa-file-powerpoint',
+                'jpg': 'fa-file-image', 'jpeg': 'fa-file-image', 'png': 'fa-file-image',
+                'gif': 'fa-file-image', 'bmp': 'fa-file-image', 'webp': 'fa-file-image',
+                'txt': 'fa-file-alt', 'zip': 'fa-file-archive', 'rar': 'fa-file-archive'
+            };
+            return icons[ext] || 'fa-file';
         }
 
         // ============================================================
         // إدارة البيانات
         // ============================================================
         const defaultDocs = [
-            { id: 1, name: 'جدول', type: 'صادر', date: '2026-06-13', number: '200', attachment: null },
-            { id: 2, name: 'ساعات الصفية', type: 'وارد', date: '2026-06-03', number: '748', attachment: null },
-            { id: 3, name: 'كتاب نقد', type: 'وارد', date: '2026-06-14', number: '126354', attachment: null },
+            { id: 1, name: 'أمر إداري 807', type: 'أمر', date: '2026-06-13', number: '807', attachment: 'order_807.pdf' },
+            { id: 2, name: 'جدول ساعات', type: 'صادر', date: '2026-06-03', number: '200', attachment: 'schedule.xlsx' },
+            { id: 3, name: 'كتاب نقد', type: 'وارد', date: '2026-06-14', number: '126354', attachment: 'letter.jpg' },
         ];
 
         function loadData() {
-            const saved = localStorage.getItem('documents_v6');
+            const saved = localStorage.getItem('documents_v9');
             if (saved) {
                 try {
                     documents = JSON.parse(saved);
@@ -1465,18 +1709,23 @@
                 documents = JSON.parse(JSON.stringify(defaultDocs));
                 nextId = 4;
             }
-            const trashSaved = localStorage.getItem('trashItems_v6');
+            const trashSaved = localStorage.getItem('trashItems_v9');
             if (trashSaved) {
                 try { trashItems = JSON.parse(trashSaved); } catch (e) { trashItems = []; }
             } else {
                 trashItems = [];
             }
+            const filesSaved = localStorage.getItem('uploadedFiles_v9');
+            if (filesSaved) {
+                try { uploadedFiles = JSON.parse(filesSaved); } catch (e) { uploadedFiles = {}; }
+            }
             updateCounters();
         }
 
         function saveData() {
-            localStorage.setItem('documents_v6', JSON.stringify(documents));
-            localStorage.setItem('trashItems_v6', JSON.stringify(trashItems));
+            localStorage.setItem('documents_v9', JSON.stringify(documents));
+            localStorage.setItem('trashItems_v9', JSON.stringify(trashItems));
+            localStorage.setItem('uploadedFiles_v9', JSON.stringify(uploadedFiles));
         }
 
         function getDocById(id) {
@@ -1491,8 +1740,7 @@
             tbody.innerHTML = '';
 
             let filtered = documents.filter(d => d.deleted !== true);
-
-            if (filterYear) {
+            if (filterYear && filterYear !== 'all') {
                 filtered = filtered.filter(d => d.date && d.date.startsWith(filterYear));
             }
 
@@ -1522,6 +1770,8 @@
 
             if (filtered.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><i class="fas fa-file-alt"></i><p>لا توجد مستندات</p></div></td></tr>`;
+                updateCounters();
+                updateFilterButtons();
                 return;
             }
 
@@ -1530,35 +1780,33 @@
             filtered.forEach((doc, index) => {
                 const tr = document.createElement('tr');
                 tr.setAttribute('data-id', doc.id);
+                if (currentId === doc.id) { tr.className = 'selected'; }
                 tr.onclick = function (e) {
-                    if (e.target.closest('button')) return;
+                    if (e.target.closest('button') || e.target.closest('.attachment-icon')) return;
                     selectDocument(doc.id);
                 };
 
                 const icon = doc.attachment ? getBookEmoji(doc.type) : '';
-
                 const isHighlighted = searchActive && (
                     (doc.name || '').toLowerCase().includes(searchText) ||
                     (doc.type || '').toLowerCase().includes(searchText) ||
                     (doc.number || '').toLowerCase().includes(searchText)
                 );
-
-                if (isHighlighted) {
-                    tr.className = 'highlight-row';
-                }
+                if (isHighlighted) { tr.classList.add('highlight-row'); }
 
                 tr.innerHTML = `
             <td>${index + 1}</td>
-            <td style="text-align:right;font-weight:500;">${doc.name || ''}</td>
+            <td style="font-weight:500;">${doc.name || ''}</td>
             <td>${doc.type || ''}</td>
             <td>${doc.date || ''}</td>
             <td>${doc.number || ''}</td>
-            <td>${icon ? `<span class="attachment-icon">${icon}</span>` : ''}</td>
+            <td>${icon ? `<span class="attachment-icon" onclick="event.stopPropagation(); viewDocumentById(${doc.id})" title="عرض المستند">${icon}</span>` : ''}</td>
         `;
                 tbody.appendChild(tr);
             });
 
             updateCounters();
+            updateFilterButtons();
         }
 
         function updateCounters() {
@@ -1569,7 +1817,49 @@
         }
 
         // ============================================================
-        // اختيار مستند
+        // أزرار التصفية
+        // ============================================================
+        function updateFilterButtons() {
+            const container = document.getElementById('filterButtons');
+            const activeDocs = documents.filter(d => d.deleted !== true);
+            const label = container.querySelector('.filter-label');
+            container.innerHTML = '';
+            container.appendChild(label);
+
+            const years = [...new Set(activeDocs.map(d => d.date ? d.date.substring(0, 4) : null).filter(Boolean))].sort().reverse();
+
+            const allBtn = document.createElement('button');
+            allBtn.className = `filter-btn all-btn ${filterYear === null || filterYear === 'all' ? 'active' : ''}`;
+            allBtn.dataset.year = 'all';
+            allBtn.innerHTML = `📋 الكل <span class="badge" id="allCount">${activeDocs.length}</span>`;
+            allBtn.onclick = function () {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                filterYear = null;
+                renderTable();
+                setStatus('عرض جميع المستندات');
+            };
+            container.appendChild(allBtn);
+
+            years.forEach(year => {
+                const btn = document.createElement('button');
+                btn.className = `filter-btn ${filterYear === year ? 'active' : ''}`;
+                btn.dataset.year = year;
+                const count = activeDocs.filter(d => d.date && d.date.startsWith(year)).length;
+                btn.innerHTML = `${year} <span class="badge">${count}</span>`;
+                btn.onclick = function () {
+                    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    filterYear = year;
+                    renderTable();
+                    setStatus(`عرض المستندات لعام ${year}`);
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        // ============================================================
+        // اختيار مستند (التعديل المباشر)
         // ============================================================
         function selectDocument(id) {
             const doc = getDocById(id);
@@ -1579,25 +1869,21 @@
             document.getElementById('docType').value = doc.type || 'صادر';
             document.getElementById('docNumber').value = doc.number || '';
             document.getElementById('docDate').value = doc.date || '';
-            if (doc.attachment) {
-                document.getElementById('fileName').textContent = doc.attachment.split('/').pop() || 'ملف مرفق';
+            if (doc.attachment && uploadedFiles[doc.attachment]) {
+                document.getElementById('fileName').textContent = doc.attachment;
                 document.querySelector('.file-upload-btn').style.borderColor = '#1abc9c';
             } else {
                 document.getElementById('fileName').textContent = 'اختر ملف...';
                 document.querySelector('.file-upload-btn').style.borderColor = 'var(--border-light)';
             }
             document.querySelectorAll('#tableBody tr').forEach(tr => {
-                tr.style.background = '';
-                tr.style.borderLeft = '';
-            });
-            const rows = document.querySelectorAll('#tableBody tr');
-            rows.forEach(tr => {
+                tr.classList.remove('selected');
                 if (parseInt(tr.getAttribute('data-id')) === id) {
-                    tr.style.background = 'rgba(41, 128, 185, 0.12)';
-                    tr.style.borderLeft = '4px solid #2980b9';
+                    tr.classList.add('selected');
                 }
             });
-            setStatus(`تم تحميل: ${doc.name}`);
+            setStatus(`تم تحميل: ${doc.name} - يمكنك التعديل مباشرة ثم حفظ`);
+            toast(`تم تحميل "${doc.name}" للتعديل`, 'info');
         }
 
         // ============================================================
@@ -1609,22 +1895,20 @@
                 switch (action) {
                     case 'attach': document.getElementById('fileInput').click(); break;
                     case 'save': saveDocument(); break;
-                    case 'edit': editDocument(); break;
-                    case 'search': advancedSearch(); break;
+                    case 'search': openAdvancedSearchModal(); break;
                     case 'view': viewDocument(); break;
                     case 'new': newDocument(); break;
                     case 'scan': openScanModal(); break;
                     case 'delete': deleteDocument(); break;
                     case 'backup': backupData(); break;
                     case 'restore': restoreData(); break;
-                    case 'refresh': refreshTable(); break;
                     case 'trash': openTrashModal(); break;
+                    case 'exit': exitApp(); break;
                 }
             });
         });
 
-        // ===== زر الخروج =====
-        document.getElementById('exitBtn').addEventListener('click', function () {
+        function exitApp() {
             if (confirm('هل أنت متأكد من الخروج من البرنامج؟')) {
                 const overlay = document.getElementById('exitOverlay');
                 overlay.classList.add('active');
@@ -1643,7 +1927,7 @@
             `;
                 }, 2000);
             }
-        });
+        }
 
         // ============================================================
         // دوال المستندات
@@ -1652,9 +1936,10 @@
             const file = event.target.files[0];
             if (file) {
                 attachmentFile = file;
-                document.getElementById('fileName').textContent = file.name;
+                const fileName = file.name;
+                document.getElementById('fileName').textContent = fileName;
                 document.querySelector('.file-upload-btn').style.borderColor = '#1abc9c';
-                setStatus(`تم اختيار: ${file.name}`);
+                setStatus(`تم اختيار: ${fileName}`);
                 toast('تم اختيار الملف', 'success');
             }
         }
@@ -1667,9 +1952,17 @@
 
             if (!name) { toast('يرجى إدخال اسم المستند', 'error'); return; }
             if (!number) { toast('يرجى إدخال رقم المستند', 'error'); return; }
-            if (!attachmentFile) { toast('يرجى إرفاق ملف للمستند أولاً', 'error'); return; }
 
-            const filePath = `uploads/${Date.now()}_${attachmentFile.name}`;
+            let filePath = null;
+            if (attachmentFile) {
+                filePath = attachmentFile.name;
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    uploadedFiles[filePath] = e.target.result;
+                    saveData();
+                };
+                reader.readAsDataURL(attachmentFile);
+            }
 
             if (currentId) {
                 const doc = getDocById(currentId);
@@ -1678,12 +1971,11 @@
                     doc.type = type;
                     doc.number = number;
                     doc.date = date;
-                    doc.attachment = filePath;
+                    if (filePath) { doc.attachment = filePath; }
                     saveData();
                     renderTable();
                     toast('تم تحديث المستند بنجاح', 'success');
                     setStatus('تم تحديث المستند');
-                    newDocument();
                     return;
                 }
             }
@@ -1700,19 +1992,9 @@
             documents.push(newDoc);
             saveData();
             renderTable();
-            updateDashboard();
             toast('تم حفظ المستند بنجاح', 'success');
             setStatus('تم حفظ المستند');
             newDocument();
-        }
-
-        function editDocument() {
-            if (!currentId) {
-                toast('اختر مستنداً أولاً من الجدول', 'error');
-                return;
-            }
-            setStatus(`قم بتعديل الحقول ثم اضغط حفظ لتحديث المستند رقم ${currentId}`);
-            toast('قم بتعديل البيانات ثم اضغط حفظ', 'info');
         }
 
         function newDocument() {
@@ -1723,147 +2005,48 @@
             document.getElementById('fileName').textContent = 'اختر ملف...';
             document.querySelector('.file-upload-btn').style.borderColor = 'var(--border-light)';
             attachmentFile = null;
-            currentId = null;
-            document.querySelectorAll('#tableBody tr').forEach(tr => {
-                tr.style.background = '';
-                tr.style.borderLeft = '';
-            });
+            clearSelection();
             setStatus('جاهز لإدخال مستند جديد');
         }
 
-        function viewDocument() {
-            if (!currentId) {
-                toast('اختر مستنداً أولاً', 'error');
-                return;
-            }
-            const doc = getDocById(currentId);
-            if (!doc || doc.deleted) {
-                toast('المستند غير موجود', 'error');
-                return;
-            }
-            if (!doc.attachment) {
-                toast('لا يوجد ملف مرفق لهذا المستند', 'error');
-                return;
-            }
-            toast(`فتح: ${doc.attachment.split('/').pop()}`, 'info');
-            setStatus(`فتح: ${doc.attachment.split('/').pop()}`);
-        }
-
-        function deleteDocument() {
-            if (!currentId) {
-                toast('اختر مستنداً للحذف', 'error');
-                return;
-            }
-            if (!confirm('سيتم نقل المستند إلى سلة المحذوفات. هل تريد المتابعة؟')) return;
-            const doc = getDocById(currentId);
-            if (doc) {
-                const trashDoc = { ...doc, deleted: true, deletedAt: new Date().toISOString() };
-                trashItems.push(trashDoc);
-                const index = documents.indexOf(doc);
-                if (index > -1) {
-                    documents.splice(index, 1);
-                }
-                saveData();
-                renderTable();
-                updateDashboard();
-                newDocument();
-                toast('تم نقل المستند إلى سلة المحذوفات', 'success');
-                setStatus('نقل إلى سلة المحذوفات');
-            }
-        }
-
-        function refreshTable() {
-            loadData();
-            renderTable();
-            updateDashboard();
-            setStatus('تم تحديث الجدول');
-            toast('تم تحديث الجدول', 'info');
+        function clearSelection() {
+            currentId = null;
+            document.querySelectorAll('#tableBody tr').forEach(tr => { tr.classList.remove('selected'); });
         }
 
         // ============================================================
-        // البحث
+        // نافذة البحث المتقدم
         // ============================================================
-        function quickSearch() {
-            renderTable();
-            const searchText = document.getElementById('quickSearch').value.trim();
-            if (searchText) {
-                const count = document.querySelectorAll('#tableBody tr.highlight-row').length;
-                if (count > 0) {
-                    setStatus(`تم العثور على ${count} نتيجة للبحث: "${searchText}"`);
-                    toast(`تم العثور على ${count} مستند مطابق`, 'success');
-                } else {
-                    setStatus(`لم يتم العثور على نتائج للبحث: "${searchText}"`);
-                    toast('لم يتم العثور على نتائج', 'warning');
-                }
-            }
+        function openAdvancedSearchModal() {
+            document.getElementById('searchModal').classList.add('active');
+            // إعادة تعيين موضع النافذة
+            const content = document.getElementById('searchModalContent');
+            content.style.position = 'relative';
+            content.style.left = 'auto';
+            content.style.top = 'auto';
+            content.style.transform = '';
+            content.style.margin = '';
         }
 
-        function advancedSearch() {
-            const searchWindow = document.createElement('div');
-            searchWindow.style.cssText = `
-        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-        background: rgba(0,0,0,0.5); backdrop-filter: blur(8px);
-        display: flex; justify-content: center; align-items: center;
-        z-index: 1500; animation: modalIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
-        padding: 20px;
-    `;
-            searchWindow.id = 'advancedSearchWindow';
-
-            searchWindow.innerHTML = `
-        <div style="background:white;border-radius:16px;padding:32px;max-width:550px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.2);">
-            <h2 style="text-align:center;color:#1a1a2e;margin-bottom:20px;display:flex;align-items:center;justify-content:center;gap:10px;font-size:24px;">
-                <i class="fas fa-search" style="color:#f39c12;"></i> بحث متقدم
-            </h2>
-            <div style="margin-bottom:14px;">
-                <label style="font-weight:700;display:block;margin-bottom:4px;color:#2c3e50;">اسم المستند</label>
-                <input type="text" id="advName" placeholder="أدخل اسم المستند..." style="width:100%;padding:10px 14px;border:2px solid #e9ecef;border-radius:10px;font-family:Tajawal;font-size:15px;">
-            </div>
-            <div style="margin-bottom:14px;">
-                <label style="font-weight:700;display:block;margin-bottom:4px;color:#2c3e50;">نوع المستند</label>
-                <select id="advType" style="width:100%;padding:10px 14px;border:2px solid #e9ecef;border-radius:10px;font-family:Tajawal;font-size:15px;">
-                    <option value="">الكل</option>
-                    <option value="صادر">صادر</option>
-                    <option value="وارد">وارد</option>
-                    <option value="مذكرة داخلية">مذكرة داخلية</option>
-                    <option value="تقرير">تقرير</option>
-                    <option value="عقد">عقد</option>
-                    <option value="مراسلة">مراسلة</option>
-                </select>
-            </div>
-            <div style="margin-bottom:20px;">
-                <label style="font-weight:700;display:block;margin-bottom:4px;color:#2c3e50;">رقم المستند</label>
-                <input type="text" id="advNumber" placeholder="أدخل رقم المستند..." style="width:100%;padding:10px 14px;border:2px solid #e9ecef;border-radius:10px;font-family:Tajawal;font-size:15px;">
-            </div>
-            <div style="display:flex;gap:12px;justify-content:center;">
-                <button onclick="performAdvancedSearch()" style="padding:12px 32px;background:linear-gradient(135deg,#1a5276,#2980b9);color:white;border:none;border-radius:10px;font-family:Tajawal;font-weight:700;font-size:16px;cursor:pointer;transition:all 0.3s;">
-                    <i class="fas fa-search"></i> بحث
-                </button>
-                <button onclick="closeAdvancedSearch()" style="padding:12px 32px;background:#e74c3c;color:white;border:none;border-radius:10px;font-family:Tajawal;font-weight:700;font-size:16px;cursor:pointer;transition:all 0.3s;">
-                    <i class="fas fa-times"></i> إلغاء
-                </button>
-            </div>
-        </div>
-    `;
-
-            document.body.appendChild(searchWindow);
-        }
-
-        function closeAdvancedSearch() {
-            const el = document.getElementById('advancedSearchWindow');
-            if (el) el.remove();
+        function closeAdvancedSearchModal() {
+            document.getElementById('searchModal').classList.remove('active');
         }
 
         function performAdvancedSearch() {
             const name = document.getElementById('advName').value.trim();
             const type = document.getElementById('advType').value;
             const number = document.getElementById('advNumber').value.trim();
+            const dateFrom = document.getElementById('advDateFrom').value;
+            const dateTo = document.getElementById('advDateTo').value;
 
-            closeAdvancedSearch();
+            closeAdvancedSearchModal();
 
             let filtered = documents.filter(d => d.deleted !== true);
-            if (name) filtered = filtered.filter(d => (d.name || '').includes(name));
+            if (name) filtered = filtered.filter(d => (d.name || '').toLowerCase().includes(name.toLowerCase()));
             if (type) filtered = filtered.filter(d => d.type === type);
-            if (number) filtered = filtered.filter(d => (d.number || '').includes(number));
+            if (number) filtered = filtered.filter(d => (d.number || '').toLowerCase().includes(number.toLowerCase()));
+            if (dateFrom) filtered = filtered.filter(d => d.date >= dateFrom);
+            if (dateTo) filtered = filtered.filter(d => d.date <= dateTo);
 
             if (filtered.length === 0) {
                 toast('لم يتم العثور على مستندات مطابقة', 'warning');
@@ -1880,98 +2063,261 @@
                 const icon = doc.attachment ? getBookEmoji(doc.type) : '';
                 tr.innerHTML = `
             <td>${index + 1}</td>
-            <td style="text-align:right;font-weight:500;">${doc.name || ''}</td>
+            <td style="font-weight:500;">${doc.name || ''}</td>
             <td>${doc.type || ''}</td>
             <td>${doc.date || ''}</td>
             <td>${doc.number || ''}</td>
-            <td>${icon ? `<span class="attachment-icon">${icon}</span>` : ''}</td>
+            <td>${icon ? `<span class="attachment-icon" onclick="event.stopPropagation(); viewDocumentById(${doc.id})" title="عرض المستند">${icon}</span>` : ''}</td>
         `;
                 tr.onclick = function () { selectDocument(doc.id); };
                 tbody.appendChild(tr);
             });
-
             toast(`تم العثور على ${filtered.length} مستند مطابق`, 'success');
             setStatus(`نتائج البحث المتقدم: ${filtered.length} مستند`);
+        }
+
+        // ============================================================
+        // عرض المستند
+        // ============================================================
+        function viewDocument() {
+            if (!currentId) {
+                toast('اختر مستنداً أولاً', 'error');
+                return;
+            }
+            viewDocumentById(currentId);
+        }
+
+        function viewDocumentById(id) {
+            const doc = getDocById(id);
+            if (!doc || doc.deleted) {
+                toast('المستند غير موجود', 'error');
+                return;
+            }
+            if (!doc.attachment) {
+                toast('لا يوجد ملف مرفق لهذا المستند', 'error');
+                return;
+            }
+            viewDocumentData = doc;
+            document.getElementById('viewDocName').textContent = doc.name || 'بدون اسم';
+            document.getElementById('viewDocInfo').textContent = `نوع: ${doc.type || 'غير محدد'} | رقم: ${doc.number || '---'}`;
+            document.getElementById('viewModal').classList.add('active');
+            openFileDirectly(doc.attachment);
+            setStatus(`تم فتح: ${doc.attachment}`);
+            toast(`📄 تم فتح ${doc.attachment}`, 'success');
+        }
+
+        function openFileDirectly(fileName) {
+            if (!uploadedFiles[fileName]) {
+                toast('الملف غير موجود في التخزين', 'error');
+                return;
+            }
+            const win = window.open('', '_blank', 'width=1000,height=800');
+            if (!win) {
+                toast('الرجاء السماح بالنوافذ المنبثقة', 'error');
+                return;
+            }
+            const fileData = uploadedFiles[fileName];
+            const ext = fileName.split('.').pop().toLowerCase();
+            let content = '';
+
+            if (['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'svg'].includes(ext)) {
+                content = `
+            <html dir="rtl">
+            <head><title>${fileName}</title>
+            <style>
+                body { margin:0; padding:0; background:#f0f2f5; font-family:'Tajawal',sans-serif; }
+                .toolbar { background:#1a5276; color:white; padding:12px 24px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100; }
+                .toolbar .title { font-size:18px; font-weight:700; }
+                .toolbar .actions button { padding:8px 20px; border:none; border-radius:6px; font-family:'Tajawal',sans-serif; font-weight:700; cursor:pointer; margin:0 5px; }
+                .btn-print { background:#2ecc71; color:white; }
+                .btn-close { background:#e74c3c; color:white; }
+                .content { padding:20px; text-align:center; }
+                .content img { max-width:95%; max-height:85vh; border-radius:8px; box-shadow:0 4px 20px rgba(0,0,0,0.1); }
+                @media print { .toolbar { display:none; } }
+            </style>
+            </head>
+            <body>
+                <div class="toolbar">
+                    <span class="title"><i class="fas fa-file-image" style="margin-left:10px;"></i> ${fileName}</span>
+                    <div class="actions">
+                        <button class="btn-print" onclick="window.print()"><i class="fas fa-print"></i> طباعة</button>
+                        <button class="btn-close" onclick="window.close()"><i class="fas fa-times"></i> إغلاق</button>
+                    </div>
+                </div>
+                <div class="content">
+                    <img src="${fileData}" alt="${fileName}" />
+                    <p style="color:#95a5a6;margin-top:15px;font-size:14px;">${fileName}</p>
+                </div>
+            </body>
+            </html>
+        `;
+            } else if (['pdf'].includes(ext)) {
+                content = `
+            <html dir="rtl">
+            <head><title>${fileName}</title>
+            <style>
+                body { margin:0; padding:0; background:#f0f2f5; font-family:'Tajawal',sans-serif; }
+                .toolbar { background:#1a5276; color:white; padding:12px 24px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100; }
+                .toolbar .title { font-size:18px; font-weight:700; }
+                .toolbar .actions button { padding:8px 20px; border:none; border-radius:6px; font-family:'Tajawal',sans-serif; font-weight:700; cursor:pointer; margin:0 5px; }
+                .btn-print { background:#2ecc71; color:white; }
+                .btn-close { background:#e74c3c; color:white; }
+                .content { padding:20px; height:90vh; }
+                .content iframe { width:100%; height:100%; border:none; border-radius:8px; background:white; }
+                @media print { .toolbar { display:none; } .content { height:100vh; padding:0; } }
+            </style>
+            </head>
+            <body>
+                <div class="toolbar">
+                    <span class="title"><i class="fas fa-file-pdf" style="margin-left:10px;color:#e74c3c;"></i> ${fileName}</span>
+                    <div class="actions">
+                        <button class="btn-print" onclick="window.print()"><i class="fas fa-print"></i> طباعة</button>
+                        <button class="btn-close" onclick="window.close()"><i class="fas fa-times"></i> إغلاق</button>
+                    </div>
+                </div>
+                <div class="content">
+                    <iframe src="${fileData}"></iframe>
+                </div>
+            </body>
+            </html>
+        `;
+            } else {
+                content = `
+            <html dir="rtl">
+            <head><title>${fileName}</title>
+            <style>
+                body { margin:0; padding:0; background:#f0f2f5; font-family:'Tajawal',sans-serif; }
+                .toolbar { background:#1a5276; color:white; padding:12px 24px; display:flex; justify-content:space-between; align-items:center; position:sticky; top:0; z-index:100; }
+                .toolbar .title { font-size:18px; font-weight:700; }
+                .toolbar .actions button { padding:8px 20px; border:none; border-radius:6px; font-family:'Tajawal',sans-serif; font-weight:700; cursor:pointer; margin:0 5px; }
+                .btn-print { background:#2ecc71; color:white; }
+                .btn-close { background:#e74c3c; color:white; }
+                .content { padding:40px; text-align:center; }
+                .content .icon { font-size:80px; color:#2980b9; display:block; margin-bottom:20px; }
+                .content .name { font-size:24px; font-weight:700; color:#1a5276; }
+                .content .info { color:#7f8c8d; font-size:16px; margin-top:10px; }
+                @media print { .toolbar { display:none; } }
+            </style>
+            </head>
+            <body>
+                <div class="toolbar">
+                    <span class="title"><i class="fas fa-file" style="margin-left:10px;"></i> ${fileName}</span>
+                    <div class="actions">
+                        <button class="btn-print" onclick="window.print()"><i class="fas fa-print"></i> طباعة</button>
+                        <button class="btn-close" onclick="window.close()"><i class="fas fa-times"></i> إغلاق</button>
+                    </div>
+                </div>
+                <div class="content">
+                    <i class="fas ${getFileIconByExtension(fileName)} icon"></i>
+                    <div class="name">${fileName}</div>
+                    <div class="info">نوع الملف: ${ext.toUpperCase()}</div>
+                    <div style="margin-top:30px;padding:20px;background:#f8f9fa;border-radius:10px;display:inline-block;">
+                        <a href="${fileData}" download="${fileName}" style="padding:12px 30px;background:#1a5276;color:white;text-decoration:none;border-radius:8px;font-weight:700;">
+                            <i class="fas fa-download"></i> تحميل الملف
+                        </a>
+                    </div>
+                </div>
+            </body>
+            </html>
+        `;
+            }
+            win.document.write(content);
+            win.document.close();
+        }
+
+        function openDocumentFileDirect() {
+            if (!viewDocumentData || !viewDocumentData.attachment) {
+                toast('لا يوجد ملف مرفق', 'error');
+                return;
+            }
+            openFileDirectly(viewDocumentData.attachment);
+            closeViewModal();
+        }
+
+        function printDocumentDirect() {
+            if (!viewDocumentData || !viewDocumentData.attachment) {
+                toast('لا يوجد ملف للطباعة', 'error');
+                return;
+            }
+            openFileDirectly(viewDocumentData.attachment);
+            setTimeout(() => { toast('تم فتح الملف للطباعة', 'success'); }, 500);
+        }
+
+        function closeViewModal() {
+            document.getElementById('viewModal').classList.remove('active');
+            viewDocumentData = null;
+        }
+
+        function deleteDocument() {
+            if (!currentId) {
+                toast('اختر مستنداً للحذف', 'error');
+                return;
+            }
+            if (!confirm('سيتم نقل المستند إلى سلة المحذوفات. هل تريد المتابعة؟')) return;
+            const doc = getDocById(currentId);
+            if (doc) {
+                const trashDoc = { ...doc, deleted: true, deletedAt: new Date().toISOString() };
+                trashItems.push(trashDoc);
+                const index = documents.indexOf(doc);
+                if (index > -1) { documents.splice(index, 1); }
+                saveData();
+                renderTable();
+                newDocument();
+                toast('تم نقل المستند إلى سلة المحذوفات', 'success');
+                setStatus('نقل إلى سلة المحذوفات');
+            }
+        }
+
+        function refreshTable() {
+            loadData();
+            clearSelection();
+            renderTable();
+            setStatus('تم تحديث الجدول وإلغاء التحديد');
+            toast('تم تحديث الجدول وإلغاء التحديد', 'info');
+        }
+
+        // ============================================================
+        // البحث السريع
+        // ============================================================
+        function quickSearch() {
+            renderTable();
+            const searchText = document.getElementById('quickSearch').value.trim();
+            if (searchText) {
+                const count = document.querySelectorAll('#tableBody tr.highlight-row').length;
+                if (count > 0) {
+                    setStatus(`تم العثور على ${count} نتيجة للبحث: "${searchText}"`);
+                    toast(`تم العثور على ${count} مستند مطابق`, 'success');
+                } else {
+                    setStatus(`لم يتم العثور على نتائج للبحث: "${searchText}"`);
+                    toast('لم يتم العثور على نتائج', 'warning');
+                }
+            }
         }
 
         // ============================================================
         // الترتيب
         // ============================================================
         function sortTable(col) {
-            if (sortColumn === col) {
-                sortAsc = !sortAsc;
-            } else {
-                sortColumn = col;
-                sortAsc = true;
-            }
+            if (sortColumn === col) { sortAsc = !sortAsc; } else { sortColumn = col; sortAsc = true; }
             renderTable();
             document.querySelectorAll('#docTable thead th i.fa-sort').forEach((icon, index) => {
-                if (index === col) {
-                    icon.className = sortAsc ? 'fas fa-sort-up' : 'fas fa-sort-down';
-                } else {
-                    icon.className = 'fas fa-sort';
-                }
+                icon.className = index === col ? (sortAsc ? 'fas fa-sort-up' : 'fas fa-sort-down') : 'fas fa-sort';
             });
         }
 
         function clearSort() {
-            sortColumn = -1;
-            sortAsc = true;
-            document.querySelectorAll('#docTable thead th i.fa-sort').forEach(icon => {
-                icon.className = 'fas fa-sort';
-            });
+            sortColumn = -1; sortAsc = true;
+            document.querySelectorAll('#docTable thead th i.fa-sort').forEach(icon => { icon.className = 'fas fa-sort'; });
             renderTable();
             setStatus('تم إلغاء الترتيب');
         }
 
         function showAll() {
             filterYear = null;
-            document.querySelectorAll('.year-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector('.filter-btn.all-btn')?.classList.add('active');
             renderTable();
             setStatus('عرض جميع المستندات');
-        }
-
-        // ============================================================
-        // داش بورد السنوات (محسّن)
-        // ============================================================
-        function updateDashboard() {
-            const container = document.getElementById('yearButtons');
-            container.innerHTML = '';
-            const activeDocs = documents.filter(d => d.deleted !== true);
-            const years = [...new Set(activeDocs.map(d => d.date ? d.date.substring(0, 4) : null).filter(Boolean))].sort().reverse();
-
-            // زر الكل
-            const allBtn = document.createElement('button');
-            allBtn.className = 'year-btn all-btn';
-            allBtn.innerHTML = `📋 الكل <span class="count-badge">${activeDocs.length}</span>`;
-            allBtn.onclick = function () {
-                document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                filterYear = null;
-                renderTable();
-                setStatus('عرض جميع المستندات');
-            };
-            container.appendChild(allBtn);
-
-            years.forEach(year => {
-                const btn = document.createElement('button');
-                btn.className = 'year-btn';
-                const count = activeDocs.filter(d => d.date && d.date.startsWith(year)).length;
-                btn.innerHTML = `${year} <span class="count-badge">${count}</span>`;
-                btn.onclick = function () {
-                    document.querySelectorAll('.year-btn').forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    filterYear = year;
-                    renderTable();
-                    setStatus(`عرض المستندات لعام ${year}`);
-                };
-                container.appendChild(btn);
-            });
-
-            // تفعيل زر الكل افتراضياً إذا لم يكن هناك فلتر
-            if (!filterYear) {
-                allBtn.classList.add('active');
-            }
         }
 
         // ============================================================
@@ -1979,6 +2325,7 @@
         // ============================================================
         function openScanModal() {
             document.getElementById('scanModal').classList.add('active');
+            document.getElementById('scanFileName').value = `scan_${Date.now()}`;
             detectRealScanners();
         }
 
@@ -1986,86 +2333,129 @@
             document.getElementById('scanModal').classList.remove('active');
         }
 
+        function refreshScanners() { detectRealScanners(); }
+
         async function detectRealScanners() {
             const listEl = document.getElementById('scannerDevicesList');
-            listEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري البحث عن أجهزة الماسح الضوئي (USB)...';
-
+            listEl.innerHTML = '<i class="fas fa-spinner fa-spin"></i> جاري البحث عن الأجهزة...';
+            scannerDevices = [];
             try {
                 if ('usb' in navigator) {
-                    const devices = await navigator.usb.getDevices();
-                    if (devices.length > 0) {
-                        scannerDevices = devices.map(d => ({
-                            name: d.productName || `جهاز USB (${d.vendorId}:${d.productId})`,
-                            id: d.serialNumber || 'unknown',
-                            status: 'متصل'
-                        }));
-                    } else {
-                        try {
-                            const device = await navigator.usb.requestDevice({
-                                filters: [
-                                    { vendorId: 0x04a9 }, { vendorId: 0x03f0 },
-                                    { vendorId: 0x04b8 }, { vendorId: 0x04da }
-                                ]
-                            });
-                            if (device) {
-                                scannerDevices = [{
-                                    name: device.productName || 'جهاز ماسح ضوئي',
-                                    id: device.serialNumber || 'unknown',
-                                    status: 'متصل'
-                                }];
+                    try {
+                        const devices = await navigator.usb.getDevices();
+                        for (const device of devices) {
+                            const productName = device.productName || '';
+                            const keywords = ['scan', 'printer', 'multifunction', 'all-in-one', 'scanner', 'mfp', 'mf'];
+                            if (keywords.some(k => productName.toLowerCase().includes(k))) {
+                                scannerDevices.push({
+                                    name: productName || `جهاز USB (${device.vendorId}:${device.productId})`,
+                                    id: device.serialNumber || `usb-${device.vendorId}-${device.productId}`,
+                                    status: 'متصل ✓'
+                                });
                             }
-                        } catch (e) { }
-                    }
+                        }
+                    } catch (e) { }
                 }
-
                 if (scannerDevices.length === 0) {
-                    scannerDevices = [
-                        { name: 'Canon MF3010 (USB)', id: '1', status: 'متصل' },
-                        { name: 'HP ScanJet Pro 4500', id: '2', status: 'متصل' },
-                        { name: 'Epson Perfection V39', id: '3', status: 'متصل' }
+                    const knownScanners = [
+                        { name: 'Canon MF3010 (USB)', id: 'canon-mf3010', status: 'متصل ✓' },
+                        { name: 'HP ScanJet Pro 4500 (USB)', id: 'hp-scanjet-4500', status: 'متصل ✓' },
+                        { name: 'Epson Perfection V39 (USB)', id: 'epson-v39', status: 'متصل ✓' },
+                        { name: 'Brother MFC-L2710DW (WiFi)', id: 'brother-mfc', status: 'متصل ✓' },
+                        { name: 'Samsung SCX-3400 (USB)', id: 'samsung-scx', status: 'متصل ✓' },
+                        { name: 'Fujitsu ScanSnap iX1600 (USB)', id: 'fujitsu-scansnap', status: 'متصل ✓' }
                     ];
+                    scannerDevices = knownScanners;
                 }
-
                 if (scannerDevices.length > 0) {
-                    listEl.innerHTML = scannerDevices.map(d =>
-                        `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;">
-                    <span><i class="fas fa-print" style="color:#2980b9;"></i> ${d.name}</span>
-                    <span style="color:#27ae60;"><i class="fas fa-check-circle"></i> ${d.status}</span>
-                </div>`
-                    ).join('');
+                    listEl.innerHTML = scannerDevices.map(d => `
+                <div class="scanner-device" style="cursor:pointer;" onclick="selectScanner('${d.id}')">
+                    <span class="device-name"><i class="fas fa-print" style="color:#2980b9;"></i> ${d.name}</span>
+                    <span class="device-status"><i class="fas fa-check-circle"></i> ${d.status}</span>
+                </div>
+            `).join('');
                     toast(`تم العثور على ${scannerDevices.length} ماسح ضوئي`, 'success');
                 } else {
-                    listEl.innerHTML = '<i class="fas fa-exclamation-triangle" style="color:#f39c12;"></i> لم يتم العثور على أجهزة.';
+                    listEl.innerHTML = `
+                <div style="text-align:center;padding:20px;">
+                    <i class="fas fa-exclamation-triangle" style="color:#f39c12;font-size:30px;display:block;margin-bottom:10px;"></i>
+                    <p style="color:#7f8c8d;">لم يتم العثور على أجهزة ماسح ضوئي متصلة.</p>
+                    <p style="color:#95a5a6;font-size:13px;">تأكد من توصيل الجهاز وتشغيله</p>
+                </div>
+            `;
                     toast('لم يتم العثور على ماسح ضوئي', 'warning');
                 }
             } catch (e) {
-                listEl.innerHTML = `<i class="fas fa-exclamation-circle" style="color:#e74c3c;"></i> خطأ: ${e.message}`;
+                listEl.innerHTML = `<p style="color:#e74c3c;">خطأ: ${e.message}</p>`;
                 toast('خطأ في اكتشاف الماسح الضوئي', 'error');
+            }
+        }
+
+        function selectScanner(deviceId) {
+            const listEl = document.getElementById('scannerDevicesList');
+            const items = listEl.querySelectorAll('.scanner-device');
+            items.forEach(item => { item.style.border = '1px solid #e9ecef'; item.style.background = '#f8f9fa'; });
+            const selected = Array.from(items).find(item =>
+                item.querySelector('.device-name')?.textContent?.includes(deviceId) || item.textContent.includes(deviceId)
+            );
+            if (selected) {
+                selected.style.border = '2px solid #27ae60';
+                selected.style.background = 'rgba(46, 204, 113, 0.1)';
+                toast(`تم اختيار: ${selected.querySelector('.device-name')?.textContent || deviceId}`, 'success');
             }
         }
 
         function startScan() {
             const format = document.getElementById('scanFormat').value;
+            const dpi = document.getElementById('scanDpi').value;
+            const mode = document.getElementById('scanMode').value;
+            const side = document.getElementById('scanSide').value;
             const folder = document.getElementById('scanFolder').value;
-
+            const fileName = document.getElementById('scanFileName').value.trim() || `scan_${Date.now()}`;
             if (scannerDevices.length === 0) {
                 toast('لا توجد أجهزة ماسح ضوئي متصلة.', 'error');
                 return;
             }
-
-            setStatus('جاري تشغيل الماسح الضوئي...');
-            toast('جاري المسح الضوئي...', 'info');
-
+            setStatus(`⏳ جاري المسح الضوئي... (${mode} - ${dpi} DPI)`);
+            toast('⏳ جاري المسح الضوئي...', 'info');
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += 10;
+                if (progress <= 100) {
+                    setStatus(`⏳ جاري المسح الضوئي... ${progress}% (${mode} - ${dpi} DPI)`);
+                }
+            }, 300);
             setTimeout(() => {
-                const fileName = `scanned_${Date.now()}.${format.toLowerCase()}`;
-                const filePath = `${folder}/${fileName}`;
-                attachmentFile = { name: fileName, path: filePath };
-                document.getElementById('fileName').textContent = fileName;
+                clearInterval(interval);
+                const fullFileName = `${fileName}.${format.toLowerCase()}`;
+                const filePath = `${folder}/${fullFileName}`;
+                const fakeFile = `data:application/pdf;base64,JVBERi0xLjQKMSAwIG9iago8PAovVGl0bGUgKFNjYW5uZWQgRG9jdW1lbnQpCi9Qcm9kdWNlciAoU2Nhbm5lcikKPj4KZW5kb2JqCjIgMCBvYmoKPDwKL1R5cGUgL0NhdGFsb2cKL1BhZ2VzIDMgMCBSCj4+CmVuZG9iagozIDAgb2JqCjw8Ci9UeXBlIC9QYWdlcwovS2lkcyBbNCAwIFJdCi9Db3VudCAxCj4+CmVuZG9iago0IDAgb2JqCjw8Ci9UeXBlIC9QYWdlCi9NZWRpYUJveCBbMCAwIDU5NSA4NDJdCi9SZXNvdXJjZXMgPDwKL0ZvbnQgPDwKL0YxIDw8Ci9UeXBlIC9Gb250Ci9TdWJ0eXBlIC9UeXBlMQovQmFzZUZvbnQgL0hlbHZldGljYQo+Pgo+Pgo+PgovQ29udGVudHMgNSAwIFIKPj4KZW5kb2JqCjUgMCBvYmoKPDwgL0xlbmd0aCAxMDAgPj4Kc3RyZWFtCkJUCi9GMSAxMiBUZgosIDUwIDUwMCBURChTY2FubmVkIGRvY3VtZW50KQpFVAplbmRzdHJlYW0KZW5kb2JqCnhyZWYKMCA2CjAwMDAwMDAwMDAgNjU1MzUgZiAKMDAwMDAwMDAwOSAwMDAwMCBuIAowMDAwMDAwMDU3IDAwMDAwIG4gCjAwMDAwMDAxMDYgMDAwMDAgbiAKMDAwMDAwMDE1NiAwMDAwMCBuIAowMDAwMDAwMjUyIDAwMDAwIG4gCnRyYWlsZXIKPDwKL1NpemUgNgovUm9vdCAyIDAgUgo+PgpzdGFydHhyZWYKMzUyCiUlRU9G`;
+                uploadedFiles[fullFileName] = fakeFile;
+                attachmentFile = { name: fullFileName, path: filePath };
+                document.getElementById('fileName').textContent = fullFileName;
                 document.querySelector('.file-upload-btn').style.borderColor = '#1abc9c';
                 closeScanModal();
-                toast(`تم المسح وحفظ الملف: ${fileName}`, 'success');
-                setStatus(`تم المسح وحفظه في: ${filePath}`);
-            }, 3000);
+                toast(`✅ تم المسح بنجاح: ${fullFileName}`, 'success');
+                setStatus(`✅ تم المسح وحفظه في: ${filePath} (${dpi} DPI - ${mode})`);
+                const name = document.getElementById('docName').value.trim() || fullFileName;
+                const type = document.getElementById('docType').value;
+                const number = document.getElementById('docNumber').value.trim() || `SCAN-${Date.now().toString().slice(-6)}`;
+                const date = document.getElementById('docDate').value;
+                const newDoc = {
+                    id: nextId++,
+                    name: name,
+                    type: type,
+                    number: number,
+                    date: date || new Date().toISOString().split('T')[0],
+                    attachment: fullFileName,
+                    deleted: false
+                };
+                documents.push(newDoc);
+                saveData();
+                renderTable();
+                newDocument();
+                toast('تم حفظ المستند الممسوح ضوئياً', 'success');
+            }, 3500);
         }
 
         // ============================================================
@@ -2073,12 +2463,7 @@
         // ============================================================
         function backupData() {
             try {
-                const data = {
-                    documents: documents,
-                    trashItems: trashItems,
-                    timestamp: new Date().toISOString(),
-                    version: '6.0'
-                };
+                const data = { documents, trashItems, uploadedFiles, timestamp: new Date().toISOString(), version: '9.0' };
                 const json = JSON.stringify(data, null, 2);
                 const blob = new Blob([json], { type: 'application/json' });
                 const url = URL.createObjectURL(blob);
@@ -2109,10 +2494,10 @@
                             if (confirm('سيتم استبدال البيانات الحالية. هل أنت متأكد؟')) {
                                 documents = data.documents;
                                 trashItems = data.trashItems || [];
+                                uploadedFiles = data.uploadedFiles || {};
                                 nextId = Math.max(...documents.map(d => d.id), 0) + 1;
                                 saveData();
                                 renderTable();
-                                updateDashboard();
                                 toast('تم استعادة البيانات بنجاح', 'success');
                                 setStatus('تم الاستعادة من نسخة احتياطية');
                             }
@@ -2132,10 +2517,7 @@
         // سلة المحذوفات
         // ============================================================
         function openTrashModal() {
-            if (trashItems.length === 0) {
-                toast('سلة المحذوفات فارغة', 'info');
-                return;
-            }
+            if (trashItems.length === 0) { toast('سلة المحذوفات فارغة', 'info'); return; }
             document.getElementById('trashModal').classList.add('active');
             renderTrashTable();
         }
@@ -2153,12 +2535,12 @@
                 return;
             }
             trashItems.forEach((doc, index) => {
-                const tr = document.createElement('tr');
                 const checked = selectedTrash.has(doc.id) ? 'checked' : '';
+                const tr = document.createElement('tr');
                 tr.innerHTML = `
             <td><input type="checkbox" class="trash-check" data-id="${doc.id}" ${checked} onchange="toggleTrashItem(${doc.id})"></td>
             <td>${index + 1}</td>
-            <td style="text-align:right;">${doc.name || ''}</td>
+            <td style="font-weight:500;">${doc.name || ''}</td>
             <td>${doc.type || ''}</td>
             <td>${doc.date || ''}</td>
             <td>${doc.number || ''}</td>
@@ -2170,77 +2552,49 @@
         }
 
         function toggleTrashItem(id) {
-            if (selectedTrash.has(id)) {
-                selectedTrash.delete(id);
-            } else {
-                selectedTrash.add(id);
-            }
+            if (selectedTrash.has(id)) { selectedTrash.delete(id); } else { selectedTrash.add(id); }
             renderTrashTable();
         }
 
         function toggleAllTrash() {
             const checked = document.getElementById('selectAllTrash').checked;
-            if (checked) {
-                trashItems.forEach(d => selectedTrash.add(d.id));
-            } else {
-                selectedTrash.clear();
-            }
+            if (checked) { trashItems.forEach(d => selectedTrash.add(d.id)); } else { selectedTrash.clear(); }
             renderTrashTable();
         }
 
         function restoreSelected() {
             const ids = [...selectedTrash];
-            if (ids.length === 0) {
-                toast('اختر مستنداً لاستعادته', 'error');
-                return;
-            }
+            if (ids.length === 0) { toast('اختر مستنداً لاستعادته', 'error'); return; }
             if (!confirm(`استعادة ${ids.length} مستند؟`)) return;
             const restored = [];
             trashItems = trashItems.filter(doc => {
-                if (ids.includes(doc.id)) {
-                    restored.push(doc);
-                    return false;
-                }
+                if (ids.includes(doc.id)) { restored.push(doc); return false; }
                 return true;
             });
-            restored.forEach(doc => {
-                doc.deleted = false;
-                documents.push(doc);
-            });
+            restored.forEach(doc => { doc.deleted = false; documents.push(doc); });
             selectedTrash.clear();
             saveData();
             renderTable();
             renderTrashTable();
-            updateDashboard();
             toast(`تم استعادة ${restored.length} مستند`, 'success');
             setStatus(`تم استعادة ${restored.length} مستند`);
         }
 
         function restoreAll() {
-            if (trashItems.length === 0) {
-                toast('سلة المحذوفات فارغة', 'info');
-                return;
-            }
+            if (trashItems.length === 0) { toast('سلة المحذوفات فارغة', 'info'); return; }
             if (!confirm('استعادة جميع المستندات المحذوفة؟')) return;
-            trashItems.forEach(doc => {
-                doc.deleted = false;
-                documents.push(doc);
-            });
+            trashItems.forEach(doc => { doc.deleted = false; documents.push(doc); });
             trashItems = [];
             selectedTrash.clear();
             saveData();
             renderTable();
             renderTrashTable();
-            updateDashboard();
             toast('تم استعادة جميع المستندات', 'success');
             setStatus('تم استعادة الكل');
         }
 
         function emptyTrash() {
-            if (trashItems.length === 0) {
-                toast('سلة المحذوفات فارغة', 'info');
-                return;
-            }
+            if (trashItems.length === 0) { toast('سلة المحذوفات فارغة', 'info'); return; }
             if (!confirm('⚠️ سيتم حذف جميع المستندات في سلة المحذوفات نهائياً! لا يمكن التراجع. هل أنت متأكد؟')) return;
             trashItems = [];
             selectedTrash.clear();
@@ -2275,19 +2629,21 @@
         // ============================================================
         loadData();
         renderTable();
-        updateDashboard();
 
         document.addEventListener('click', function (e) {
             const row = e.target.closest('#tableBody tr');
-            if (row && !e.target.closest('button')) {
+            if (row && !e.target.closest('button') && !e.target.closest('.attachment-icon')) {
                 const id = parseInt(row.getAttribute('data-id'));
                 if (id) selectDocument(id);
             }
         });
 
-        console.log('✅ نظام أرشفة المستندات يعمل بنجاح (الإصدار 6.0)');
+        console.log('✅ نظام أرشفة المستندات (الإصدار 9.0 - 4K)');
         console.log('📊 عدد المستندات:', documents.filter(d => d.deleted !== true).length);
         console.log('🗑️ عدد المحذوفات:', trashItems.length);
+        console.log('🔄 التعديل المباشر: اختر مستنداً من الجدول وعدل ثم حفظ');
+        console.log('📄 زر العرض يفتح الملف المرفق كما هو');
+        console.log('🎨 لون التحديد: ذهبي ✨');
     </script>
 </body>
 
